@@ -1,0 +1,15 @@
+{
+  "usesTypeScript": false,
+  "usesStyledComponents": true,
+    "usesCssModule": true,
+  "testLibrary": "None",
+  "component": {
+    "default": {
+      "path": "\\",
+      "withStyle": true,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false
+    }
+  }
+}
