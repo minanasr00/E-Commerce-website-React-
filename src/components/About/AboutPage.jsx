@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import img from '../assets/imgs/11.jpg'
-import img1 from '../assets/imgs/12.jpg'
-import bgImg from '../assets/imgs/slide-01.jpg'
+import img from '../../assets/imgs/11.jpg'
+import img1 from '../../assets/imgs/12.jpg'
+import bgImg from '../../assets/imgs/slide-01.jpg'
 const AboutSection = () => {
   const imageRefs = useRef([]);
 
