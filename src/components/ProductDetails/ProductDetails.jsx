@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import shirt1 from '../assets/imgs/1.jpg';
-import shirt2 from '../assets/imgs/2.jpg';
-import shirt3 from '../assets/imgs/3.jpg';
-import shirt4 from '../assets/imgs/4.jpg';
-import shirt5 from '../assets/imgs/5.jpg';
+import shirt1 from '../../assets/imgs/1.jpg';
+import shirt2 from '../../assets/imgs/2.jpg';
+import shirt3 from '../../assets/imgs/3.jpg';
+import shirt4 from '../../assets/imgs/4.jpg';
+import shirt5 from '../../assets/imgs/5.jpg';
 
 const images = [shirt1, shirt2, shirt3, shirt4, shirt5];
 const colors = ['#d1d1d1', '#3b3b3b', '#1a1a1a', '#a7f3d0', '#f5f5f5', '#c7d2fe'];

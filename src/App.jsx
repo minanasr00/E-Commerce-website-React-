@@ -1,38 +1,28 @@
-<<<<<<< HEAD
+import './fonts.css';
 import { useState } from 'react'
-import PageNotFound from './components/PageNotFound';
+// import PageNotFound from './components/PageNotFound';
 import './App.css'
 import Register from './components/Register'
-import Login from './components/Login'
-=======
->>>>>>> 791fefdbd3d9099758385297b1fe1e31e157b0c7
+// import Login from './components/Login'
+
+
 
 import './App.css'
+import Home from './components/Home/Home'
+import Navbar from './components/Navbar/Navbar'
 // import AboutSection from'./components/AboutPage.jsx'
 // import ProductDetails from'./components/ProductDetails.jsx'
 function App() {
-<<<<<<< HEAD
   useState(0)
 
   return (
-   <>
-   <div className='w-full h-screen bg'>
-    <Register/>
-   </div>
-   </>
-=======
+    <>
+      <Navbar></Navbar>
+      <Home></Home>
+    </>
+  )
  
 
-  return (
-    <>
-      {/* <AboutSection/>
-      <br></br>
-       <br></br>
-       <br></br>
-      <ProductDetails/> */}
-    </>
->>>>>>> 791fefdbd3d9099758385297b1fe1e31e157b0c7
-  )
 }
 
 export default App
