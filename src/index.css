@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 .bg{
   background-image: url('../src/assets/2.jpg');
   background-position: center;
