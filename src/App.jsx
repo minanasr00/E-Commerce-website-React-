@@ -15,7 +15,8 @@ function App() {
 
 
   return <>
-  
+  <Navbar />
+    <Home />
   </>
 }
 

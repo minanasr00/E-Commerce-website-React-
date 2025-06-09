@@ -19,16 +19,16 @@ export default function Home() {
         <a href="" className='font-[beatrice]'>MEN</a>
         <a href="" className='font-[beatrice]'>WOMEN</a>
         <a href="" className='font-[beatrice]'>KIDS</a>
-        <form class="mb-4">
-          <div class="flex">
-            <div class="relative w-full">
-              <input type="search" id="location-search" class="block p-2.5 w-full  text-sm text-gray-900 bg-[#D9D9D9]" placeholder="Search..." required />
-              <button type="submit" class="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-black bg-[#D9D9D9]  hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
-                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">               
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />                 
+        <form className="mb-4">
+          <div className="flex">
+            <div className="relative w-full">
+              <input type="search" id="location-search" className="block p-2.5 w-full  text-sm text-gray-900 bg-[#D9D9D9]" placeholder="Search..." required />
+              <button type="submit" className="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-black bg-[#D9D9D9]  hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
+                <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
-                <span class="sr-only">Search</span>
-              </button>             
+                <span className="sr-only">Search</span>
+              </button>
             </div>
           </div>  
         </form>
@@ -144,17 +144,24 @@ export default function Home() {
     <div className="footer  font-[beatrice] bg-[#F5F5F5] mt-20">
       <div className='grid grid-cols-12  p-10'>
         <div className='col-span-4 flex flex-col'>
-        <h2 className='text-stone-500 text-[20px]'>info</h2>
+          <div className='mb-15'>
+            <h2 className='text-stone-500 text-[20px]'>info</h2>
           <p className='text-[14px]'>pricing</p>
           <p className='text-[14px]'>about</p>
           <p className='text-[14px]'>contacts</p>
         </div>
-        <div className='col-span-4 flex flex-col'>
-        <h2 className='text-stone-500 text-[20px]'>Technologies</h2>
-          <div></div>
-          <div className='text-[80px] font-[inter] font-extrabold'>XIV</div>
-          <div className='text-[80px] font-[inter] font-extrabold
-          '>QR</div>
+          <div>
+            <h2 className='text-stone-500 text-[20px]'>Languages</h2>
+          <p className='text-[14px]'>English</p>
+          <p className='text-[14px]'>Spanish</p>
+          <p className='text-[14px]'>French</p>
+        </div>
+        </div>
+        <div className='col-span-4 flex flex-col justify-center items-center'>
+        <h2 className='text-stone-500 text-[20px] mb-4'>Technologies</h2>
+         <div className="w-10 h-10 bg-gradient-to-br from-white to-black transform rotate-45 mb-2"></div>
+          <div className='text-[80px] font-[inter] font-extrabold leading-[70px] text-gray-950'>XIV</div>
+          <div className='text-[80px] font-[inter] font-extrabold leading-[60px] text-gray-950'>QR</div>
         </div>
       </div>
         
