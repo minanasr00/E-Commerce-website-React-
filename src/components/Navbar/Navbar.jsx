@@ -1,41 +1,56 @@
 import React from 'react'
 import { BiMenuAltLeft } from "react-icons/bi";
+import Products from './../Products/Products';
+import { MdOutlineShoppingBag } from "react-icons/md";
 export default function Navbar() {
   return <>
-<nav className="bg-white  w-full z-20 top-0 start-0 border-b border-gray-200 ">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between  mx-auto p-4">
+    <nav className="font-[beatrice] p-4 flex justify-between items-center shadow-md sticky bg-white top-0 z-50 min-w-sm">
+      <div className="flex items-center space-x-6">
+        <button className="text-black focus:outline-none">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+        <div className=" space-x-4 sm:hidden md:flex">
+          <a href="#" className="text-black hover:text-gray-700">Home</a>
+        <a href="#" className="text-black hover:text-gray-700">Collections</a>
+        <a href="#" className="text-black hover:text-gray-700">New</a>
+        </div>
+      </div>
 
-        <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+      <div>
+        <span>
+          <div className="w-8 h-8 bg-gradient-to-br from-white to-black transform rotate-45 mb-2"></div>
+        </span> 
+      </div>
 
-
-      <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white ">
-        <li>
-          <a href="#" className="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0" aria-current="page">Home</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0">About</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Services</a>
-        </li>
-        <li>
-          <a href="#" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Contact</a>
-        </li>
-          </ul>
-          
-    </div>
-    
-    <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse justify-between">
-          <div> 
-            <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
-        {/* <span className="sr-only">Open main menu</span> */}
-       <BiMenuAltLeft className='text-3xl text-black'/>
+      {/* Right side - Icons */}
+      <div className="flex items-center space-x-4 ">
+           <svg
+            className=" cursor-pointer rotate-315 bg-black rounded-full p-1"
+            xmlns="http://www.w3.org/2000/svg"
+            height="35px"
+            viewBox="0 -960 960 960"
+            width="35px"
+            fill="#ffffff"
+          >
+            <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" />
+          </svg>
+        
+        <div className="flex items-center ">
+          <button className="bg-black text-white px-4 py-2 rounded-full focus:outline-none cursor-pointer sm:hidden md:block">Cart</button>
+          <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center ml-[-8px] cursor-pointer">
+           <MdOutlineShoppingBag />
+          </div>
+        </div>
+        <button className="text-black focus:outline-none">
+          <svg className="cursor-pointer w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
         </button>
       </div>
-      <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">Get started</button>
-    </div>
-  </div>
-</nav>
+    </nav>
+
 
 
 
