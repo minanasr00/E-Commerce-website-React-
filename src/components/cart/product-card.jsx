@@ -2,10 +2,11 @@ export const ProductCard = () => {
   return (
     <div className="w-fit">
       <div className="flex gap-2">
-        <div className="h-[350px] w-[300px] bg-amber-700 relative">
+        <div className="h-[350px] w-[300px] relative">
           <img src="./5.jpg" alt="" className="w-full h-full" />
-          <button className=" absolute bottom-0 right-0 p-[4px] bg-[#fafafa]">
+          <button className=" absolute bottom-0 right-0 p-[4px] bg-[#fafafa] cursor-pointer">
             <svg
+              className="rotate-315 "
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
               viewBox="0 -960 960 960"
@@ -17,16 +18,16 @@ export const ProductCard = () => {
           </button>
         </div>
         <div>
-          <div className="flex flex-col justify-between h-[150px]">
+          <div className="flex flex-col justify-between h-[200px]">
             <div>
-              <button>×</button>
+              <button className="text-2xl cursor-pointer">×</button>
             </div>
-            <p>L</p>
-            <div className="h-[20px] w-[20px] bg-amber-950"></div>
+            <p className="mb-[10px]">L</p>
+            <div className="h-[20px] w-[20px] bg-black"></div>
             <div className="flex flex-col">
-              <button className="border-1">+</button>
-              <span className="border-x-1">1</span>
-              <button className="border-1">-</button>
+              <button className="border-1 cursor-pointer">+</button>
+              <span className="border-x-1 text-center">1</span>
+              <button className="border-1 cursor-pointer">-</button>
             </div>
           </div>
         </div>
