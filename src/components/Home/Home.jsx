@@ -1,15 +1,27 @@
 import React from 'react'
+import { FaArrowRightLong } from "react-icons/fa6";
+import { FaLongArrowAltLeft } from "react-icons/fa";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import img1 from "../../assets/imgs/1.jpg"
+import img2 from "../../assets/imgs/2.jpg"
+import img3 from "../../assets/imgs/3.jpg"
+import img4 from "../../assets/imgs/4.jpg"
+import img5 from "../../assets/imgs/5.jpg"
+import img6 from "../../assets/imgs/9.jpg"
+import img7 from "../../assets/imgs/10.jpg"
+import img8 from "../../assets/imgs/11.jpg"
+import img9 from "../../assets/imgs/12.jpg"
 
 export default function Home() {
   return <>
-    <div className='p-5'>
+    <div className='p-10'>
       <div className="search flex flex-col xs:w-full md:w-[33.3%] gap-1">
-        <a href="">MEN</a>
-        <a href="">WOMEN</a>
-        <a href="">KIDS</a>        
-        <form class="mb-4">          
-          <div class="flex">           
-            <div class="relative w-full">              
+        <a href="" className='font-[beatrice]'>MEN</a>
+        <a href="" className='font-[beatrice]'>WOMEN</a>
+        <a href="" className='font-[beatrice]'>KIDS</a>
+        <form class="mb-4">
+          <div class="flex">
+            <div class="relative w-full">
               <input type="search" id="location-search" class="block p-2.5 w-full  text-sm text-gray-900 bg-[#D9D9D9]" placeholder="Search..." required />
               <button type="submit" class="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-black bg-[#D9D9D9]  hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">               
@@ -22,18 +34,130 @@ export default function Home() {
         </form>
         
       </div>
-      <div className="grid grid-cols-12 mt-10">
-        <div className="col-span-4">
-          <p className='font-[beatrice] text-3xl'>NEW</p>
+      <div className="grid grid-cols-12 mt-10 gap-14 ">
+        <div className="col-span-12 md:col-span-6 lg:col-span-4 h-96 flex flex-col justify-between ">
+          <div>
+            <p className='font-[beatrice] text-3xl'>NEW</p>
           <p className='font-[beatrice] text-3xl'>COLLECTION</p>
           <p className='text-sm'>summer</p>
-          <p className='text-sm'>2025</p>
+          <p className='text-sm'>2025</p></div>
+          <div className='self-end w-full flex justify-end mt-12'>
+          <button className='font-[beatrice] cursor-pointer p-1 bg-[#8080808f]'>go to shop <FaArrowRightLong className='inline ms-5'/></button>
+          </div>
         </div>
-        <div className="col-span-4">
-          
+        <div className="col-span-12 md:col-span-6 lg:col-span-4 h-96">
+          <img src={img1} className='object-cover object-top w-full h-full' alt="" />
+        </div>
+        <div className="col-span-12 md:col-span-6 lg:col-span-4 h-96">
+          <img src={img2} className='object-cover object-top w-full h-full' alt="" />
         </div>
       </div>
+      <div className='grid mt-32'>
+        <div className='flex justify-between items-center '>
+          <h1 className='font-[beatrice] text-4xl '>new <br />this week</h1>
+          <p className='cursor-pointer text-gray-700'>See All</p>
+        </div>
+        <div className='grid grid-cols-12 gap-14 mt-5'>
+          <div className='col-span-12 md:col-span-4 lg:col-span-3 h-96'>
+            <img src={img3} className='object-cover object-center w-full h-full' alt="" />
+             <div className=''>
+              <p className='text-gray-700'>teshirt</p>
+              <div className='flex justify-between'>
+                <p>
+                  black teshirt oversize
+                </p>
+                <p>
+                  80$
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className='col-span-12 md:col-span-4 lg:col-span-3 h-96'>
+            <img src={img4} className='object-cover object-center w-full h-full' alt="" />
+             <div className=''>
+              <p className='text-gray-700'>teshirt</p>
+              <div className='flex justify-between'>
+                <p>
+                  black teshirt oversize
+                </p>
+                <p>
+                  80$
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className='col-span-12 md:col-span-4 lg:col-span-3 h-96'>
+            <img src={img5} className='object-cover object-center w-full h-full' alt="" />
+             <div className=''>
+              <p className='text-gray-700'>teshirt</p>
+              <div className='flex justify-between'>
+                <p>
+                  black teshirt oversize
+                </p>
+                <p>
+                  80$
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className='col-span-12 md:col-span-4 lg:col-span-3 h-96'>
+            <img src={img5} className='object-cover object-center w-full h-full' alt="" />
+            <div className=''>
+              <p className='text-gray-700'>teshirt</p>
+              <div className='flex justify-between'>
+                <p>
+                  black teshirt oversize
+                </p>
+                <p>
+                  80$
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className='col-span-12 gap-2 flex justify-center mt-5 w-full'>
+            <button><FaLongArrowAltLeft className='text-3xl border border-gray-500 cursor-pointer hover:bg-gray-300'/></button>
+            <button><FaLongArrowAltRight className='text-3xl border border-gray-500 cursor-pointer hover:bg-gray-300'/></button>
+          </div>
+        </div>
+      </div>
+      <div className='flex flex-col items-center justify-center mt-20 gap-5'>
+      <h1 className='font-[beatrice] text-4xl'>Our Approach to fashion design </h1>
+      <p className='font-[beatrice] text-center text-[15px] text-gray-800 w-[40%]'>
+        at elegant vogue , we blend creativity with craftsmanship to create fashion that transcends trends and stands the test of time each design is meticulously crafted, ensuring the highest quelity exqulsite finish
+      </p>
     </div>
-
+    <div className='grid grid-cols-12 gap-10 mt-20 mb-3'>
+      <div className="col-span-3 h-80 ">
+        <img className='h-full w-full object-cover' src={img8} alt="" />
+        </div>
+      <div className="col-span-3 h-80 mt-12">
+        <img className='h-full w-full object-cover' src={img9} alt="" />
+        </div>
+      <div className="col-span-3 h-80">
+        <img className='h-full w-full object-cover' src={img7} alt="" />
+        </div>
+      <div className="col-span-3 h-80 mt-15">
+        <img className='h-full w-full object-cover' src={img6} alt="" />
+        </div>
+    </div>
+    </div>
+    <div className="footer  font-[beatrice] bg-[#F5F5F5] mt-20">
+      <div className='grid grid-cols-12  p-10'>
+        <div className='col-span-4 flex flex-col'>
+        <h2 className='text-stone-500 text-[20px]'>info</h2>
+          <p className='text-[14px]'>pricing</p>
+          <p className='text-[14px]'>about</p>
+          <p className='text-[14px]'>contacts</p>
+        </div>
+        <div className='col-span-4 flex flex-col'>
+        <h2 className='text-stone-500 text-[20px]'>Technologies</h2>
+          <div></div>
+          <div className='text-[80px] font-[inter] font-extrabold'>XIV</div>
+          <div className='text-[80px] font-[inter] font-extrabold
+          '>QR</div>
+        </div>
+      </div>
+        
+    </div>
   </>
 }
