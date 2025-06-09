@@ -16,7 +16,7 @@ export default function ProductDetails() {
   const [selectedSize, setSelectedSize] = useState('XS');
 
   return (
-    <div className="min-h-screen bg-[#f7f7f7] py-12 px-4 font-sans">
+    <div className="font-[beatrice] min-h-screen bg-[#f7f7f7] py-12 px-4">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12">
         {/* Left: Thumbnails + Main Image */}
         <div className="flex gap-4">
@@ -63,7 +63,7 @@ export default function ProductDetails() {
     <h1 className="text-lg  font-mono">Abstract Print Shirt</h1>
     <p className="text-xl  mt-2 font-mono ">$99</p>
     <p className="text-[15px] text-gray-500 mt-1 ">MRP incl. of all taxes</p>
-    <p className="mt-10 text-gray-950 text-[15px] leading-6 mb-10 ">
+    <p className="mt-10 text-gray-950 text-[17px] leading-6 mb-10 font-sans">
       Relaxed-fit shirt. Camp collar and short sleeves. Button-up front.
     </p>
 
@@ -96,14 +96,14 @@ export default function ProductDetails() {
           </button>
         ))}
       </div>
-      <div className="mt-4 text-[15px] text-gray-800 ">
+      <div className="mt-4 text-[15px] text-gray-500 ">
         FIND YOUR SIZE | MEASUREMENT GUIDE
       </div>
     </div>
   </div>
 
   {/* Add Button */}
-  <button className="w-full mt-5 bg-neutral-300 text-black py-3  text-sm font-semibold cursor-pointer">
+  <button className="w-full mt-5 bg-neutral-300 text-black py-3  text-sm font-semibold cursor-pointer hover:bg-black hover:text-white">
     ADD
   </button>
 </div>
