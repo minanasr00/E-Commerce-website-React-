@@ -1,9 +1,10 @@
 import React from "react";
+import "../components/Login/Login.module.css"
 export default function Login(){
 
     return(
         <>
-         <div className="w-full h-screen flex items-center justify-center tracking-wider">
+         <div className="w-full h-screen bg flex items-center justify-center tracking-wider">
 <div className="w-11/12 sm:w-5/12 glass md:w-5/12 text-sm">
     <div className="w-full text-center my-3">
         <h2 className="text-2x1 text-black font-medium">Login</h2>
