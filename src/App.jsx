@@ -7,6 +7,11 @@ import Login from './components/Login'
 import './App.css'
 // import AboutSection from'./components/AboutPage.jsx'
 // import ProductDetails from'./components/ProductDetails.jsx'
+// import Register from './components/Register';
+// import PageNotFound from './components/PageNotFound';
+import ProductDetails from './components/ProductDetails/ProductDetails';
+
+
 function App() {
   useState(0)
 
@@ -16,11 +21,9 @@ function App() {
     <Register/>
    </div>
    </>
- 
+   )
 
-      )    
-      
 
 }
 
-export default App
+export default App;

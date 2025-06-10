@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'beatrice';
+  src: url('./beatrice-font-family-1749382690-0/BeatriceDeckTRIAL-Bold-BF64829e916f5e9.ttf') format('truetype'),
+       url('./beatrice-font-family-1749382690-0/BeatriceDeckTRIAL-BoldItalic-BF64829e918c7cd.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
