@@ -8,7 +8,7 @@ export default function Register(){
         <div style={{ '--background-image': `url(${img})` }} className={`w-full h-screen ${styles.bg} flex items-center justify-center tracking-wider`}>
 <div className={`w-11/12 sm:w-5/12 ${styles.glass} md:w-5/12 text-sm`}>
     <div className="w-full text-center my-3">
-        <h2 className="text-2x1 text-black font-medium">Register</h2>
+        <h2 className="text-2x1 text-black bg fa-1 font-medium">Register</h2>
     </div>
     <form className="my-2">
         <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
