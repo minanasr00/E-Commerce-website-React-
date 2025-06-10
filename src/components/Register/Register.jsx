@@ -1,12 +1,12 @@
 import React from "react";
- import './Register.module.css'
+import styles from './Register.module.css';
+ import img from "../../assets/2.jpg";
 
 export default function Register(){
 
-    return(
-        <>
-        <div className="w-full h-screen flex items-center justify-center tracking-wider">
-<div className="w-11/12 sm:w-5/12 glass md:w-5/12 text-sm">
+    return<>
+        <div style={{ '--background-image': `url(${img})` }} className={`w-full h-screen ${styles.bg} flex items-center justify-center tracking-wider`}>
+<div className={`w-11/12 sm:w-5/12 ${styles.glass} md:w-5/12 text-sm`}>
     <div className="w-full text-center my-3">
         <h2 className="text-2x1 text-black font-medium">Register</h2>
     </div>
@@ -45,5 +45,4 @@ export default function Register(){
     </div>     
        </div>
         </>
-    )
 }
