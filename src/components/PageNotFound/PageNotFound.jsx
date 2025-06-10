@@ -1,6 +1,6 @@
 import React from "react";
- import svg from "../assets/404.svg"; 
- import '../components/PageNotFound/PageNot.module.css'
+ import svg from "../../assets/404.svg"; 
+ import './PageNot.module.css'
  const PageNotFound = () => {
      return ( <> <div className="h-screen cont-404">
          <img src={svg} className="h-full w-full object-contain" alt="svg" /> 
