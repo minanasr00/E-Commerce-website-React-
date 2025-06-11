@@ -11,14 +11,16 @@ import img6 from "../../assets/imgs/9.jpg"
 import img7 from "../../assets/imgs/10.jpg"
 import img8 from "../../assets/imgs/11.jpg"
 import img9 from "../../assets/imgs/12.jpg"
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Home() {
+  const navigate = useNavigate();
   return <>
     <div className='p-10'>
       <div className="search flex flex-col xs:w-full md:w-[33.3%] gap-1">
-        <a href="" className='font-[beatrice]'>MEN</a>
-        <a href="" className='font-[beatrice]'>WOMEN</a>
-        <a href="" className='font-[beatrice]'>KIDS</a>
+        <Link to="/products" className='font-[beatrice]'>MEN</Link>
+        <Link to="/products" className='font-[beatrice]'>WOMEN</Link>
+        <Link to="/products" className='font-[beatrice]'>KIDS</Link>
         <form className="mb-6">
           <div className="flex">
             <div className="relative w-full">
@@ -41,7 +43,7 @@ export default function Home() {
           <p className='font-[beatrice] text-3xl'>COLLECTION</p>
           <p className='text-sm'>summer</p>
           <p className='text-sm'>2025</p></div>
-          <div className='self-end w-full flex justify-end mt-12'>
+          <div className='self-end w-full flex justify-end mt-12' onClick={() => navigate("/products")}>
           <button className='font-[beatrice] cursor-pointer p-1 bg-[#8080808f]'>go to shop <FaArrowRightLong className='inline ms-5'/></button>
           </div>
         </div>
@@ -55,7 +57,7 @@ export default function Home() {
       <div className='grid mt-32'>
         <div className='flex justify-between items-center '>
           <h1 className='font-[beatrice] text-4xl '>new <br />this week</h1>
-          <p className='cursor-pointer text-gray-700'>See All</p>
+          <p onClick={() => navigate("/products")} className='cursor-pointer text-gray-700'>See All</p>
         </div>
         <div className='grid grid-cols-12 gap-14 mt-5'>
           <div className='col-span-12 md:col-span-4 lg:col-span-3 h-96'>
