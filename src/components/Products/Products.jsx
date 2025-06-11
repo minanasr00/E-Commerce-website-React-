@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { useProducts } from "../../contexts/ProductsContext";
 import Filters from "./Filters";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const { products, loading } = useProducts();
@@ -126,9 +127,12 @@ const Products = () => {
                 Rating: {product.rating} ★
               </p>
               <div className="flex justify-between mt-4 space-x-2">
-                <button className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition">
-                  View Details
-                </button>
+                <Link
+                  to={`/products/${product.id}`}
+                  className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition text-center flex-1"
+                >
+                 View Details
+                </Link>
                 <button className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition">
                   Add to Cart
                 </button>
