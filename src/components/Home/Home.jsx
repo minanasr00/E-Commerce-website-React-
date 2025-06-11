@@ -19,7 +19,7 @@ export default function Home() {
         <a href="" className='font-[beatrice]'>MEN</a>
         <a href="" className='font-[beatrice]'>WOMEN</a>
         <a href="" className='font-[beatrice]'>KIDS</a>
-        <form className="mb-4">
+        <form className="mb-6">
           <div className="flex">
             <div className="relative w-full">
               <input type="search" id="location-search" className="block p-2.5 w-full  text-sm text-gray-900 bg-[#D9D9D9]" placeholder="Search..." required />
