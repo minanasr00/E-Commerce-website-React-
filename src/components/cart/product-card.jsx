@@ -2,7 +2,7 @@ export const ProductCard = () => {
   return (
     <div className="w-fit">
       <div className="flex gap-2">
-        <div className="h-[350px] w-[300px] relative">
+        <div className="h-[350px] w-[300px] max-w-[100%] relative">
           <img src="./5.jpg" alt="" className="w-full h-full" />
           <button className=" absolute bottom-0 right-0 p-[4px] bg-[#fafafa] cursor-pointer">
             <svg

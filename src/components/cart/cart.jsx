@@ -5,7 +5,6 @@ import { Summary } from "./summary";
 export const Cart = () => {
   return (
     <div className="px-[24px]">
-      <Navbar />
       <div className="max-w-screen-xl mx-auto mt-[50px] flex">
         <h2 className="font-semibold mb-[20px] mr-[20px]">Shopping Bag</h2>
         <button className="flex items-start cursor-pointer">
@@ -22,8 +21,8 @@ export const Cart = () => {
           Favorites
         </button>
       </div>
-      <div className="max-w-screen-xl mx-auto items-center flex gap-5 justify-between">
-        <div className="flex gap-7 border-y-1 border-[#C9C9C9] py-3">
+      <div className="max-w-screen-xl mx-auto items-center flex flex-wrap gap-5 justify-between">
+        <div className="flex flex-wrap gap-7 border-y-1 border-[#C9C9C9] py-3">
           <ProductCard />
           <ProductCard />
         </div>
