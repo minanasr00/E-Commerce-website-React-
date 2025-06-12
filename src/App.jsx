@@ -12,6 +12,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Products from './components/Products/Products';
 import { Cart } from './components/cart/cart';
 import ProductDetails from './components/ProductDetails/ProductDetails';
+import { ApiContextProvider } from './contexts/ApiContext';
 
 
 const routes = createBrowserRouter(
@@ -32,8 +33,10 @@ const routes = createBrowserRouter(
 function App() {
 
   return <>
+    <ApiContextProvider>
       <RouterProvider router={routes} />
+    </ApiContextProvider>
   </>
-  }
+}
 
 export default App;

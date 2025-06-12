@@ -1,26 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import img1 from "../../assets/imgs/1.jpg"
 import img2 from "../../assets/imgs/2.jpg"
-import img3 from "../../assets/imgs/3.jpg"
-import img4 from "../../assets/imgs/4.jpg"
-import img5 from "../../assets/imgs/5.jpg"
+// import img3 from "../../assets/imgs/3.jpg"
+// import img4 from "../../assets/imgs/4.jpg"
+// import img5 from "../../assets/imgs/5.jpg"
 import img6 from "../../assets/imgs/9.jpg"
 import img7 from "../../assets/imgs/10.jpg"
 import img8 from "../../assets/imgs/11.jpg"
 import img9 from "../../assets/imgs/12.jpg"
 import { Link, useNavigate } from 'react-router-dom';
+import { ApiContext } from '../../contexts/ApiContext';
+import ProductCard from './productCard';
+
 
 export default function Home() {
+  const { homeData } = useContext(ApiContext);
   const navigate = useNavigate();
   return <>
     <div className='p-10'>
       <div className="search flex flex-col xs:w-full md:w-[33.3%] gap-1">
-        <Link to="/products" className='font-[beatrice]'>MEN</Link>
-        <Link to="/products" className='font-[beatrice]'>WOMEN</Link>
-        <Link to="/products" className='font-[beatrice]'>KIDS</Link>
+        <Link to="/products" state={{category : "Men's Fashion"}} className='font-[beatrice]'>MEN</Link>
+        <Link to="/products" state={{category : "Women's Fashion"}} className='font-[beatrice]'>WOMEN</Link>
+        <Link to="/products" state={{category : "Kids' Fashion"}} className='font-[beatrice]'>KIDS</Link>
         <form className="mb-6">
           <div className="flex">
             <div className="relative w-full">
@@ -60,62 +64,10 @@ export default function Home() {
           <p onClick={() => navigate("/products")} className='cursor-pointer text-gray-700'>See All</p>
         </div>
         <div className='grid grid-cols-12 gap-14 mt-5'>
-          <div className='col-span-12 md:col-span-4 lg:col-span-3 h-96'>
-            <img src={img3} className='object-cover object-center w-full h-full' alt="" />
-             <div className=''>
-              <p className='text-gray-700'>teshirt</p>
-              <div className='flex justify-between'>
-                <p>
-                  black teshirt oversize
-                </p>
-                <p>
-                  80$
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className='col-span-12 md:col-span-4 lg:col-span-3 h-96'>
-            <img src={img4} className='object-cover object-center w-full h-full' alt="" />
-             <div className=''>
-              <p className='text-gray-700'>teshirt</p>
-              <div className='flex justify-between'>
-                <p>
-                  black teshirt oversize
-                </p>
-                <p>
-                  80$
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className='col-span-12 md:col-span-4 lg:col-span-3 h-96'>
-            <img src={img5} className='object-cover object-center w-full h-full' alt="" />
-             <div className=''>
-              <p className='text-gray-700'>teshirt</p>
-              <div className='flex justify-between'>
-                <p>
-                  black teshirt oversize
-                </p>
-                <p>
-                  80$
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className='col-span-12 md:col-span-4 lg:col-span-3 h-96'>
-            <img src={img5} className='object-cover object-center w-full h-full' alt="" />
-            <div className=''>
-              <p className='text-gray-700'>teshirt</p>
-              <div className='flex justify-between'>
-                <p>
-                  black teshirt oversize
-                </p>
-                <p>
-                  80$
-                </p>
-              </div>
-            </div>
-          </div>
+          {homeData?.map((item) => (
+            <ProductCard key={item.id} product={item} />
+          ))}
+
           <div className='col-span-12 gap-2 flex justify-center mt-5 w-full'>
             <button><FaLongArrowAltLeft className='text-3xl border border-gray-500 cursor-pointer hover:bg-gray-300'/></button>
             <button><FaLongArrowAltRight className='text-3xl border border-gray-500 cursor-pointer hover:bg-gray-300'/></button>

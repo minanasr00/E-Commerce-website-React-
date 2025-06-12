@@ -1,18 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BiMenuAltLeft } from "react-icons/bi";
 import Products from './../Products/Products';
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
+
+
 export default function Navbar() {
+  const [isOpen,setIsOpen] = useState(false)
   const navigate = useNavigate();
   return <>
     <nav className="font-[beatrice] p-4 flex justify-between items-center shadow-md sticky bg-white top-0 z-50 min-w-sm">
       <div className="flex items-center space-x-6">
-        <button className="text-black focus:outline-none">
+        <button onClick={()=>{setIsOpen(!isOpen)}} className="text-black cursor-pointer focus:outline-none sm:block md:hidden relative">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
           </svg>
         </button>
+        {isOpen && <div className="md:hidden space-x-4 absolute flex flex-col top-6 left-10  rounded-2xl px-3 shadow-2xl w-48 z-10 mt-3 bg-white backdrop-blur-md ">
+          <Link to="/" className=" text-black hover:text-gray-700">Home</Link>
+        <Link to="/products" className="text-black hover:text-gray-700">Products</Link>
+        <Link to="/about" className="text-black hover:text-gray-700">about</Link>
+        </div> }
         <div className=" space-x-4 sm:hidden md:flex">
           <Link to="/" className="text-black hover:text-gray-700">Home</Link>
         <Link to="/products" className="text-black hover:text-gray-700">Products</Link>
