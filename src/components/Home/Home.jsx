@@ -48,7 +48,7 @@ export default function Home() {
           <p className='text-sm'>summer</p>
           <p className='text-sm'>2025</p></div>
           <div className='self-end w-full flex justify-end mt-12' onClick={() => navigate("/products")}>
-          <button className='font-[beatrice] cursor-pointer p-1 bg-[#8080808f]'>go to shop <FaArrowRightLong className='inline ms-5'/></button>
+          <button className='font-[beatrice] cursor-pointer p-1 bg-[#8080808f] hover:bg-black hover:text-white'>go to shop <FaArrowRightLong className='inline ms-5'/></button>
           </div>
         </div>
         <div className="col-span-12 md:col-span-6 lg:col-span-4 h-96">
