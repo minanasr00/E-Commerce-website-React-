@@ -14,50 +14,53 @@ export default function ProductDetails() {
 
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState(null);
-  const [iconColor, setIconColor] = useState('grey'); // Set to black initially
+  const [iconColor, setIconColor] = useState('grey');
+  const [selectedColor, setSelectedColor] = useState(colors[2]);
+  const [selectedSize, setSelectedSize] = useState('XS');
 
   const toggleIconColor = () => {
     setIconColor(prev => (prev === 'grey' ? '#000' : 'grey'));
   };
 
-  const [selectedColor, setSelectedColor] = useState(colors[2]);
-  const [selectedSize, setSelectedSize] = useState('XS');
 
   useEffect(() => {
-    const found = products.find(p => p.id === id);
-    if (found) {
-      setProduct(found);
-      setMainImage(found.thumbnail);
-    } else {
-      const fetchProduct = async () => {
-        try {
-          const res = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
-          const p = res.data.data;
-          const formatted = {
-            id: p.id,
-            title: p.title,
-            description: p.description,
-            price: p.price,
-            category: p.category.name,
-            brand: p.brand.name,
-            stock: p.quantity,
-            rating: p.ratingsAverage,
-            thumbnail: p.imageCover,
-            images: p.images,
-          };
-          setProduct(formatted);
-          setMainImage(formatted.thumbnail);
-        } catch (err) {
-          console.error("Error loading product:", err);
-        }
-      };
-      fetchProduct();
-    }
+    const loadProduct = async () => {
+      const found = products.find(p => p.id === id);
+
+      if (found?.images) {
+        setProduct(found);
+        setMainImage(found.thumbnail);
+        return;
+      }
+
+      try {
+        const res = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
+        const p = res.data.data;
+        const formatted = {
+          id: p.id,
+          title: p.title,
+          description: p.description,
+          price: p.price,
+          category: p.category.name,
+          brand: p.brand.name,
+          stock: p.quantity,
+          rating: p.ratingsAverage,
+          thumbnail: p.imageCover,
+          images: p.images || [],
+        };
+        setProduct(formatted);
+        setMainImage(formatted.thumbnail);
+      } catch (err) {
+        console.error("Error loading product:", err);
+      }
+    };
+
+    loadProduct();
   }, [id, products]);
 
   if (!product) return <div className="text-center py-10">Loading...</div>;
 
-  const thumbnails = product.images?.length > 0
+  const thumbnails = product.images?.length
     ? [product.thumbnail, ...product.images.filter(img => img !== product.thumbnail)]
     : [product.thumbnail];
 
@@ -71,53 +74,49 @@ export default function ProductDetails() {
         <FaArrowLeft />
       </button>
 
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 mt-10">
-        {/* Images Section */}
-        <div className="flex flex-col md:flex-row gap-6 items-center md:items-start w-full">
-          {/* Main Image */}
-          <div className="w-full md:w-[400px] h-[400px] md:h-[550px]">
-            <img
-              src={mainImage}
-              alt="Main"
-              className="w-full h-full object-cover"
-            />
-          </div>
+     <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 mt-10">
+  {/* Images Section */}
+  <div className="flex flex-col md:flex-row gap-6 w-full">
+    {/* Main Image */}
+    <div className="w-full md:w-[400px] h-[400px] md:h-[550px] self-center">
+      <img
+        src={mainImage}
+        alt="Main"
+        className="w-full h-full object-cover "
+      />
+    </div>
+    <div className="flex flex-row md:flex-col gap-3 mt-4 md:mt-0 overflow-x-auto md:overflow-visible items-center ml-20">
+  {thumbnails.map((img, i) => (
+    <img
+      key={i}
+      src={img}
+      alt={`Thumbnail ${i + 1}`}
+      onClick={() => setMainImage(img)}
+      className={`w-32 h-28 object-cover cursor-pointer border ${
+        mainImage === img ? 'border-black' : 'border-transparent'
+      } opacity-60 hover:opacity-100 transition`}
+    />
+  ))}
+</div>
+  </div>
 
-          {/* Thumbnails */}
-          <div className="flex flex-row md:flex-col gap-3 mt-4 md:mt-0 overflow-x-auto md:overflow-visible">
-            {thumbnails.map((img, i) => (
-              <img
-                key={i}
-                src={img}
-                alt={`Thumbnail ${i + 1}`}
-                onClick={() => setMainImage(img)}
-                className={`w-20 h-28 object-cover cursor-pointer border ${
-                  mainImage === img ? 'border-black' : 'border-transparent'
-                } opacity-60 hover:opacity-100 transition`}
-              />
-            ))}
-          </div>
-        </div>
+
 
         {/* Product Details */}
         <div className="relative w-full max-w-sm bg-white p-10 flex flex-col justify-between mx-auto">
-
-          {/* Favorite Icon Button */}
-          <button
-            onClick={toggleIconColor}
-            className="absolute top-4 right-4 z-10 p-2"
-          >
+          {/* Favorite Icon */}
+          <button onClick={toggleIconColor} className="absolute top-4 right-4 z-10 p-2">
             <FaHeart size={22} color={iconColor} />
           </button>
 
-          <div>
-            <h1 className="text-lg font-mono">{product.title}</h1>
-            <p className="text-xl mt-2 font-mono">${product.price}</p>
-            <p className="text-[15px] text-gray-500 mt-1">MRP incl. of all taxes</p>
-            <p className="mt-6 text-gray-800 text-[17px] leading-6 font-sans">{product.description}</p>
+          <div >
+            <h1 className="text-lg font-mono mb-5">{product.title}</h1>
+            <p className="text-xl mt-2 font-mono mb-5">${product.price}</p>
+            <p className="text-[15px] text-gray-500 mt-1 mb-5">MRP incl. of all taxes</p>
+            <p className="mt-6 text-gray-800 text-[17px] leading-6 font-sans mb-30">{product.description}</p>
 
             {/* Color Picker */}
-            <div className="mt-10">
+            <div className="mb-5">
               <p className="text-sm font-medium mb-2">Color</p>
               <div className="flex gap-2">
                 {colors.map((color, idx) => (
@@ -136,7 +135,7 @@ export default function ProductDetails() {
             {/* Size Picker */}
             <div className="mt-6">
               <p className="text-sm font-medium mb-2">Size</p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2  mb-10">
                 {sizes.map(size => (
                   <button
                     key={size}
@@ -158,7 +157,7 @@ export default function ProductDetails() {
           </div>
 
           {/* Add to Cart Button */}
-          <button className="w-full mt-6 bg-neutral-300 text-black py-3 text-sm font-semibold hover:bg-black hover:text-white transition cursor-pointer">
+          <button className="w-full bg-neutral-300 text-black py-3 text-sm font-semibold hover:bg-black hover:text-white transition cursor-pointer">
             ADD
           </button>
         </div>
@@ -166,3 +165,4 @@ export default function ProductDetails() {
     </div>
   );
 }
+
