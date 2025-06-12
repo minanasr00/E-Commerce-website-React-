@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useProducts } from '../../contexts/ProductsContext.jsx';
 import axios from 'axios';
+import { FaArrowLeft, FaHeart } from 'react-icons/fa';
 
 const colors = ['#d1d1d1', '#3b3b3b', '#1a1a1a', '#a7f3d0', '#f5f5f5', '#c7d2fe'];
 const sizes = ['XS', 'S', 'M', 'L', 'XL', '1XL'];
 
 export default function ProductDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { products } = useProducts();
 
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [iconColor, setIconColor] = useState('grey'); // Set to black initially
+
+  const toggleIconColor = () => {
+    setIconColor(prev => (prev === 'grey' ? '#000' : 'grey'));
+  };
+
   const [selectedColor, setSelectedColor] = useState(colors[2]);
   const [selectedSize, setSelectedSize] = useState('XS');
 
@@ -22,7 +29,6 @@ export default function ProductDetails() {
       setProduct(found);
       setMainImage(found.thumbnail);
     } else {
-      // fetch from API if not found
       const fetchProduct = async () => {
         try {
           const res = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
@@ -37,9 +43,8 @@ export default function ProductDetails() {
             stock: p.quantity,
             rating: p.ratingsAverage,
             thumbnail: p.imageCover,
-            images: p.images, 
+            images: p.images,
           };
-          console.log("Images from API:", p.images); 
           setProduct(formatted);
           setMainImage(formatted.thumbnail);
         } catch (err) {
@@ -52,70 +57,76 @@ export default function ProductDetails() {
 
   if (!product) return <div className="text-center py-10">Loading...</div>;
 
+  const thumbnails = product.images?.length > 0
+    ? [product.thumbnail, ...product.images.filter(img => img !== product.thumbnail)]
+    : [product.thumbnail];
+
   return (
-    <div className="font-[beatrice] min-h-screen bg-[#f7f7f7] py-12 px-4">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12">
-        {/* Left: Thumbnails + Main Image */}
-        <div className="flex gap-4">
+    <div className="font-[beatrice] min-h-screen bg-[#f7f7f7] py-12 px-4 relative">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate('/products')}
+        className="absolute top-10 left-4 text-2xl text-gray-700 hover:text-black cursor-pointer"
+      >
+        <FaArrowLeft />
+      </button>
+
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 mt-10">
+        {/* Images Section */}
+        <div className="flex flex-col md:flex-row gap-6 items-center md:items-start w-full">
           {/* Main Image */}
-          <div className="w-[400px] h-[550px] mt-8">
+          <div className="w-full md:w-[400px] h-[400px] md:h-[550px]">
             <img
               src={mainImage}
-              alt="Main Product"
+              alt="Main"
               className="w-full h-full object-cover"
             />
           </div>
+
+          {/* Thumbnails */}
+          <div className="flex flex-row md:flex-col gap-3 mt-4 md:mt-0 overflow-x-auto md:overflow-visible">
+            {thumbnails.map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                alt={`Thumbnail ${i + 1}`}
+                onClick={() => setMainImage(img)}
+                className={`w-20 h-28 object-cover cursor-pointer border ${
+                  mainImage === img ? 'border-black' : 'border-transparent'
+                } opacity-60 hover:opacity-100 transition`}
+              />
+            ))}
+          </div>
         </div>
 
-   {/* Thumbnails */}
-<div className="flex md:flex-col justify-center gap-2 md:gap-4 overflow-x-auto md:overflow-visible mt-4 md:mt-0">
-  {(
-    product.images?.length > 0 
-      ? [product.thumbnail, ...product.images.filter(img => img !== product.thumbnail)]
-      : [product.thumbnail]
-  ).map((img, i) => (
-    <img
-      key={i}
-      src={img}
-      alt={`Thumbnail ${i + 1}`}
-      onClick={() => setMainImage(img)}
-      className={`w-20 h-28 object-cover cursor-pointer opacity-60 hover:opacity-100 transition border ${
-        mainImage === img ? 'opacity-100 border-black' : 'border-transparent'
-      }`}
-    />
-  ))}
-</div>
-
-
-
-        {/* Right: Details */}
+        {/* Product Details */}
         <div className="relative w-full max-w-sm bg-white p-10 flex flex-col justify-between mx-auto">
+
+          {/* Favorite Icon Button */}
           <button
-            onClick={() => setIsFavorite(!isFavorite)}
-            className={`absolute top-4 right-4 text-3xl transition ${
-              isFavorite ? 'text-red-500' : 'text-gray-400 hover:text-red-500'
-            }`}
+            onClick={toggleIconColor}
+            className="absolute top-4 right-4 z-10 p-2"
           >
-            ♥
+            <FaHeart size={22} color={iconColor} />
           </button>
 
-          <div className="w-full">
+          <div>
             <h1 className="text-lg font-mono">{product.title}</h1>
             <p className="text-xl mt-2 font-mono">${product.price}</p>
             <p className="text-[15px] text-gray-500 mt-1">MRP incl. of all taxes</p>
-            <p className="mt-10 text-gray-950 text-[17px] leading-6 mb-10 font-sans">
-              {product.description}
-            </p>
+            <p className="mt-6 text-gray-800 text-[17px] leading-6 font-sans">{product.description}</p>
 
             {/* Color Picker */}
-            <div className="mt-20 w-full">
+            <div className="mt-10">
               <p className="text-sm font-medium mb-2">Color</p>
               <div className="flex gap-2">
                 {colors.map((color, idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedColor(color)}
-                    className={`cursor-pointer w-10 h-10 border ${selectedColor === color ? 'border-black' : 'border-gray-300'}`}
+                    className={`w-10 h-10 rounded-full border ${
+                      selectedColor === color ? 'border-black' : 'border-gray-300'
+                    } cursor-pointer`}
                     style={{ backgroundColor: color }}
                   />
                 ))}
@@ -123,18 +134,18 @@ export default function ProductDetails() {
             </div>
 
             {/* Size Picker */}
-            <div className="mt-6 w-full">
+            <div className="mt-6">
               <p className="text-sm font-medium mb-2">Size</p>
               <div className="flex flex-wrap gap-2">
                 {sizes.map(size => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`cursor-pointer w-10 h-10 border text-sm ${
+                    className={`w-10 h-10 border text-sm ${
                       selectedSize === size
                         ? 'bg-neutral-300'
                         : 'bg-white text-black border-gray-300'
-                    }`}
+                    } cursor-pointer`}
                   >
                     {size}
                   </button>
@@ -146,8 +157,8 @@ export default function ProductDetails() {
             </div>
           </div>
 
-          {/* Add Button */}
-          <button className="w-full mt-5 bg-neutral-300 text-black py-3 text-sm font-semibold cursor-pointer hover:bg-black hover:text-white">
+          {/* Add to Cart Button */}
+          <button className="w-full mt-6 bg-neutral-300 text-black py-3 text-sm font-semibold hover:bg-black hover:text-white transition cursor-pointer">
             ADD
           </button>
         </div>
