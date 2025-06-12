@@ -113,7 +113,7 @@ export default function ProductDetails() {
             <h1 className="text-lg font-mono mb-5">{product.title}</h1>
             <p className="text-xl mt-2 font-mono mb-5">${product.price}</p>
             <p className="text-[15px] text-gray-500 mt-1 mb-5">MRP incl. of all taxes</p>
-            <p className="mt-6 text-gray-800 text-[17px] leading-6 font-sans mb-10">{product.description}</p>
+            <p className="mt-6 text-gray-800 text-[17px] leading-6 font-sans mb-30">{product.description}</p>
 
             {/* Color Picker */}
             <div className="mb-5">
