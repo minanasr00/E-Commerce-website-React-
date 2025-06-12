@@ -13,6 +13,7 @@ import Products from './components/Products/Products';
 import { Cart } from './components/cart/cart';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import { ApiContextProvider } from './contexts/ApiContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 
 const routes = createBrowserRouter(
@@ -33,9 +34,11 @@ const routes = createBrowserRouter(
 function App() {
 
   return <>
-    <ApiContextProvider>
-      <RouterProvider router={routes} />
-    </ApiContextProvider>
+    <AuthProvider>
+      <ApiContextProvider>
+        <RouterProvider router={routes} />
+      </ApiContextProvider>
+    </AuthProvider>
   </>
 }
 
