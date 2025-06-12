@@ -20,7 +20,7 @@ export default function Home() {
   const { homeData } = useContext(ApiContext);
   const navigate = useNavigate();
   return <>
-    <div className='p-10'>
+    <div className='px-10 pt-25'>
       <div className="search flex flex-col xs:w-full md:w-[33.3%] gap-1">
         <Link to="/products" state={{category : "Men's Fashion"}} className='font-[beatrice]'>MEN</Link>
         <Link to="/products" state={{category : "Women's Fashion"}} className='font-[beatrice]'>WOMEN</Link>
@@ -51,10 +51,10 @@ export default function Home() {
           <button className='font-[beatrice] cursor-pointer p-1 bg-[#8080808f] hover:bg-black hover:text-white'>go to shop <FaArrowRightLong className='inline ms-5'/></button>
           </div>
         </div>
-        <div className="col-span-12 md:col-span-6 lg:col-span-4 h-96">
+        <div className="col-span-12 md:col-span-6 lg:col-span-4 h-96 shadow-sky-100 shadow-md">
           <img src={img1} className='object-cover object-top w-full h-full' alt="" />
         </div>
-        <div className="col-span-12 md:col-span-6 lg:col-span-4 h-96">
+        <div className="col-span-12 md:col-span-6 lg:col-span-4 h-96 shadow-sky-100 shadow-md">
           <img src={img2} className='object-cover object-top w-full h-full' alt="" />
         </div>
       </div>
@@ -63,9 +63,9 @@ export default function Home() {
           <h1 className='font-[beatrice] text-4xl '>new <br />this week</h1>
           <p onClick={() => navigate("/products")} className='cursor-pointer text-gray-700'>See All</p>
         </div>
-        <div className='grid grid-cols-12 gap-14 mt-5'>
+        <div className='grid grid-cols-12 gap-14 mt-5 '>
           {homeData?.map((item) => (
-            <ProductCard key={item.id} product={item} />
+            <ProductCard  key={item.id} product={item} />
           ))}
 
           <div className='col-span-12 gap-2 flex justify-center mt-5 w-full'>

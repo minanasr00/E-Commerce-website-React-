@@ -59,17 +59,17 @@ export default function Register() {
   return (
     <div
       style={{ '--background-image': `url(${img})` }}
-      className={`w-full h-screen ${styles.bg} flex items-center justify-center tracking-wider`}
+      className={`w-full ${styles.bg} flex items-center justify-center pt-17 tracking-wider`}
     >
-      <div className={`w-11/12 sm:w-5/12 ${styles.glass} md:w-5/12 text-base py-20`}>
-        <div className="w-full text-center mb-10">
+      <div className={`w-11/12 sm:w-5/12 ${styles.glass} md:w-5/12 text-base `}>
+        <div className="w-full text-center mb-2">
           <h2 className="text-3xl text-black font-semibold">Register</h2>
         </div>
-        <form className="my-2" onSubmit={handleSubmit(onSubmit)}>
+        <form className="my-2 " onSubmit={handleSubmit(onSubmit)}>
 
           {/* Name */}
-          <div className="mx-5 my-10">
-            <label htmlFor="name" className="block text-black text-lg font-semibold mb-4">Name:</label>
+          <div className="mx-5 my-2">
+            <label htmlFor="name" className="block text-black text-lg font-semibold ">Name:</label>
             <div className="flex border-b-2 border-black py-2">
               <input
                 id="name"
@@ -86,8 +86,8 @@ export default function Register() {
           </div>
 
           {/* Email */}
-          <div className="mx-5 my-10">
-            <label htmlFor="email" className="block text-black text-lg font-semibold mb-4">Email:</label>
+          <div className="mx-5 my-2">
+            <label htmlFor="email" className="block text-black text-lg font-semibold ">Email:</label>
             <div className="flex border-b-2 border-black py-2">
               <input
                 id="email"
@@ -104,8 +104,8 @@ export default function Register() {
           </div>
 
           {/* Password */}
-          <div className="mx-5 my-10">
-            <label htmlFor="password" className="block text-black text-lg font-semibold mb-4">Password:</label>
+          <div className="mx-5 my-2">
+            <label htmlFor="password" className="block text-black text-lg font-semibold ">Password:</label>
             <div className="flex border-b-2 border-black py-2">
               <input
                 id="password"
@@ -122,8 +122,8 @@ export default function Register() {
           </div>
 
           {/* Confirm Password */}
-          <div className="mx-5 my-10">
-            <label htmlFor="rePassword" className="block text-black text-lg font-semibold mb-4">Confirm Password:</label>
+          <div className="mx-5 my-2">
+            <label htmlFor="rePassword" className="block text-black text-lg font-semibold ">Confirm Password:</label>
             <div className="flex border-b-2 border-black py-2">
               <input
                 id="rePassword"
@@ -140,8 +140,8 @@ export default function Register() {
           </div>
 
           {/* Phone */}
-          <div className="mx-5 my-10">
-            <label htmlFor="phone" className="block text-black text-lg font-semibold mb-4">Phone Number:</label>
+          <div className="mx-5 my-2">
+            <label htmlFor="phone" className="block text-black text-lg font-semibold">Phone Number:</label>
             <div className="flex border-b-2 border-black py-2">
               <input
                 id="phone"
@@ -158,14 +158,14 @@ export default function Register() {
           </div>
 
           {/* Submit Button */}
-          <div className="mx-5 my-12">
+          <div className="mx-5 my-8">
             <button type="submit" className="bg-black w-full h-10 rounded text-white text-base">
               Register
             </button>
           </div>
 
           {/* Login Link */}
-          <div className="mx-5 mt-8 py-3 flex items-center justify-center cursor-pointer">
+          <div className="mx-5 py-3 flex items-center justify-center cursor-pointer">
             <p className="text-base">Already have an account? /Login</p>
           </div>
 
