@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const FilterSection = ({ title, children }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="mb-4 border-b pb-2">
@@ -37,6 +37,8 @@ const Filters = ({
 
   return (
     <div className="bg-white p-4 rounded-xl shadow-md">
+      <h2 className="text-2xl font-bold mb-4 text-gray-800 font-[beatrice]">Apply Filters:</h2>
+      <p className="text-sm text-gray-500 mb-4 font-[beatrice]">Save your time and filter the products here</p>
       <FilterSection title="Category">
         {categories.map((cat) => (
           <label key={cat} className="block">

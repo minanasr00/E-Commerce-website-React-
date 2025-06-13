@@ -4,12 +4,18 @@ import Filters from "./Filters";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useWishlist } from "../../contexts/WishlistContext";
+import { useLocation } from 'react-router-dom';
+
 
 const Products = () => {
   const { products, loading } = useProducts();
 
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 9;
+  const { state } = useLocation();
+  console.log(state);
+  
+
 
   const [selectedFilters, setSelectedFilters] = useState({
     categories: [],
@@ -138,7 +144,7 @@ const { toggleWishlist, isInWishlist } = useWishlist();
                 ${product.price}
               </p>
               <p className={`text-sm mb-1 ${
-                product.stock > 0 ? "text-green-600" : "text-red-600"}`}>
+                product.stock > 0 ? "text-green-600" : "text-red-600 font-[beatrice]"}`}>
                 In Stock: {product.stock > 0 ? "Yes" : "No"}
               </p>
               <p className="text-sm text-yellow-600 mb-4">
