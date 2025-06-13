@@ -1,10 +1,14 @@
+import { useCartData } from "./useCartData";
+
 export const Summary = () => {
+  const { totalPrice } = useCartData();
+
   return (
     <div className="p-[20px] border-1 border-[#D9D9D9] m-3">
       <h3 className="font-semibold mb-[20px]">Order Summary</h3>
       <div className="flex justify-between">
         <p>Subtotal</p>
-        <p>$180</p>
+        <p>${totalPrice}</p>
       </div>
       <div className="flex justify-between mb-[20px]">
         <p>Shipping</p>
