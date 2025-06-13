@@ -7,7 +7,11 @@ export const Cart = () => {
   const { isLoading, data } = useCartData();
 
   if (isLoading) {
-    return <div>Loading cart data</div>;
+    return (
+      <div className="px-[24px] mt-20">
+        <div>Loading cart data</div>
+      </div>
+    );
   }
 
   return (
@@ -31,7 +35,7 @@ export const Cart = () => {
       <div className="max-w-screen-xl mx-auto items-center flex flex-wrap gap-5 justify-between">
         <div className="flex flex-wrap gap-7 border-y-1 border-[#C9C9C9] py-3">
           {data.map((product) => (
-            <ProductCard data={product} />
+            <ProductCard key={product._id} data={product} />
           ))}
         </div>
         <Summary />
