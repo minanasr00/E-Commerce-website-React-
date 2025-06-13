@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useProducts } from '../../contexts/ProductsContext.jsx';
 import axios from 'axios';
 import { FaArrowLeft, FaHeart, FaRegHeart } from 'react-icons/fa';
-import { useWishlist } from "../../contexts/WishlistContext";
+import { useWishlist } from '../../contexts/WishlistContext';
 
 const colors = ['#d1d1d1', '#3b3b3b', '#1a1a1a', '#a7f3d0', '#f5f5f5', '#c7d2fe'];
 const sizes = ['XS', 'S', 'M', 'L', 'XL', '1XL'];
@@ -12,20 +12,16 @@ export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { products } = useProducts();
-const { toggleWishlist, isInWishlist } = useWishlist();
+  const { toggleWishlist, isInWishlist } = useWishlist();
+
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState(null);
- 
   const [selectedColor, setSelectedColor] = useState(colors[2]);
   const [selectedSize, setSelectedSize] = useState('XS');
-
-  
-
 
   useEffect(() => {
     const loadProduct = async () => {
       const found = products.find(p => p.id === id);
-
       if (found?.images) {
         setProduct(found);
         setMainImage(found.thumbnail);
@@ -63,63 +59,63 @@ const { toggleWishlist, isInWishlist } = useWishlist();
     ? [product.thumbnail, ...product.images.filter(img => img !== product.thumbnail)]
     : [product.thumbnail];
 
+const isClothing = ['clothing', 'apparel', 'fashion', 't-shirts', 'shirts', 'pants'].some(cat =>
+  product.category?.toLowerCase().includes(cat)
+);
   return (
-   <div className="relative max-w-6xl mx-auto flex flex-col md:flex-row gap-12 mt-10">
-
+    <div className="relative max-w-6xl mx-auto mt-30">
       {/* Back Button */}
       <button
         onClick={() => navigate('/products')}
-        className="absolute top-15 left-0 text-2xl text-gray-700 hover:text-black cursor-pointer"
+        className="absolute top-0 left-0 text-2xl text-gray-700 hover:text-black cursor-pointer"
       >
         <FaArrowLeft />
       </button>
 
-     <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 mt-10">
-  {/* Images Section */}
-  <div className="flex flex-col md:flex-row gap-6 w-full">
-    {/* Main Image */}
-    <div className="w-full md:w-[400px] h-[400px] md:h-[550px] self-center">
-      <img
-        src={mainImage}
-        alt="Main"
-        className="w-full h-full object-cover "
-      />
-    </div>
-    <div className="flex flex-row md:flex-col gap-3 mt-4 md:mt-0 overflow-x-auto md:overflow-visible items-center ml-20">
-  {thumbnails.map((img, i) => (
-    <img
-      key={i}
-      src={img}
-      alt={`Thumbnail ${i + 1}`}
-      onClick={() => setMainImage(img)}
-      className={`w-32 h-28 object-cover cursor-pointer border ${
-        mainImage === img ? 'border-black' : 'border-transparent'
-      } opacity-60 hover:opacity-100 transition`}
-    />
-  ))}
-</div>
-  </div>
-
-
+      <div className="flex flex-col md:flex-row gap-12 mt-8">
+        {/* Images Section */}
+        <div className="flex flex-col md:flex-row gap-6 w-full">
+          <div className="w-full md:w-[400px] h-[400px] md:h-[550px] self-center">
+            <img
+              src={mainImage}
+              alt="Main"
+              className="w-full h-full object-cover "
+            />
+          </div>
+          <div className="flex flex-row md:flex-col gap-3 mt-4 md:mt-0 overflow-x-auto md:overflow-visible items-center ml-4">
+            {thumbnails.map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                alt={`Thumbnail ${i + 1}`}
+                onClick={() => setMainImage(img)}
+                className={`w-32 h-28 object-cover cursor-pointer border ml-20 ${
+                  mainImage === img ? 'border-black' : 'border-transparent'
+                } opacity-60 hover:opacity-100 transition`}
+              />
+            ))}
+          </div>
+        </div>
 
         {/* Product Details */}
-        <div className="relative w-full max-w-sm bg-white p-10 flex flex-col justify-between mx-auto">
+        <div className="relative w-full max-w-sm bg-white p-6 flex flex-col justify-between h-[550px] shadow-sm border self-center">
+          {/* Wishlist Button */}
           <button
-           onClick={() => toggleWishlist(product)}
-           className="absolute top-8 right-10 text-xl"
-         >
-           {isInWishlist(product.id) ? (
-             <FaHeart className="text-black-500 " />
-           ) : (
-             <FaRegHeart className="text-black-400" />
-           )}
-         </button>
+            onClick={() => toggleWishlist(product)}
+            className="absolute top-6 right-6 text-xl"
+          >
+            {isInWishlist(product.id) ? (
+              <FaHeart className="text-black" />
+            ) : (
+              <FaRegHeart className="text-gray-400" />
+            )}
+          </button>
 
-          <div >
-            <h1 className="text-lg font-mono mb-5">{product.title}</h1>
-            <p className="text-xl mt-2 font-mono mb-5">${product.price}</p>
-            <p className="text-[15px] text-gray-500 mt-1 mb-5">MRP incl. of all taxes</p>
-            <p className="mt-6 text-gray-800 text-[17px] leading-6 font-sans mb-3">{product.description}</p>
+          <div className="overflow-y-auto pr-2">
+            <h1 className="text-xl font-semibold mb-2">{product.title}</h1>
+            <p className="text-lg mb-2">${product.price}</p>
+            <p className="text-sm text-gray-500 mb-4">MRP incl. of all taxes</p>
+            <p className="text-sm text-gray-700 mb-5">{product.description}</p>
 
             {/* Color Picker */}
             <div className="mb-5">
@@ -129,41 +125,45 @@ const { toggleWishlist, isInWishlist } = useWishlist();
                   <button
                     key={idx}
                     onClick={() => setSelectedColor(color)}
-                    className={`w-10 h-10 rounded-full border ${
+                    className={`w-8 h-8 rounded-full border cursor-pointer ${
                       selectedColor === color ? 'border-black' : 'border-gray-300'
-                    } cursor-pointer`}
+                    }`}
                     style={{ backgroundColor: color }}
                   />
                 ))}
               </div>
             </div>
+{isClothing && (
+ <div className="mb-6">
+  <p className="text-sm font-medium mb-2">Size</p>
+  <div className="flex flex-wrap gap-2">
+    {sizes.map(size => (
+      <button
+        key={size}
+        onClick={() => setSelectedSize(size)}
+        className={`w-10 h-10 border text-sm cursor-pointer ${
+          selectedSize === size
+            ? 'bg-neutral-300'
+            : 'bg-white text-black border-gray-300'
+        }`}
+      >
+        {size}
+      </button>
+    ))}
+  </div>
+  <div className="mt-3 text-xs text-gray-500">
+    FIND YOUR SIZE | MEASUREMENT GUIDE
+  </div>
+</div>
+)}
+           {/* Size Picker */}
 
-            {/* Size Picker */}
-            <div className="mt-6">
-              <p className="text-sm font-medium mb-2">Size</p>
-              <div className="flex flex-wrap gap-2  mb-10">
-                {sizes.map(size => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`w-10 h-10 border text-sm ${
-                      selectedSize === size
-                        ? 'bg-neutral-300'
-                        : 'bg-white text-black border-gray-300'
-                    } cursor-pointer`}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-              <div className="mt-4 text-[15px] text-gray-500">
-                FIND YOUR SIZE | MEASUREMENT GUIDE
-              </div>
-            </div>
+
+           
           </div>
 
           {/* Add to Cart Button */}
-          <button className="w-full bg-neutral-300 text-black py-3 text-sm font-semibold hover:bg-black hover:text-white transition cursor-pointer">
+          <button className="mt-4 w-full bg-neutral-300 text-black py-3 text-sm font-semibold hover:bg-black hover:text-white transition cursor-pointer">
             ADD
           </button>
         </div>
@@ -171,4 +171,3 @@ const { toggleWishlist, isInWishlist } = useWishlist();
     </div>
   );
 }
-
