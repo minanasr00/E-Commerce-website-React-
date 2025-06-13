@@ -14,7 +14,8 @@ import { Cart } from './components/cart/cart';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import { ApiContextProvider } from './contexts/ApiContext';
 import { AuthProvider } from './contexts/AuthContext';
-
+import { WishlistProvider } from './contexts/WishlistContext';
+import Wishlist from './components/Wishlist/Wishlist';
 
 const routes = createBrowserRouter(
   [
@@ -22,6 +23,7 @@ const routes = createBrowserRouter(
       { path: '/', element: <Home /> },
       { path: '/about', element: <AboutPage /> },
       { path: '/products', element: <Products /> },
+      { path: '/Wishlist', element: <Wishlist /> },
       { path: '/products/:id', element: <ProductDetails /> },
       { path: '/cart', element: <Cart/> },
       { path: '/login', element: <Login /> },
@@ -36,9 +38,12 @@ function App() {
   return <>
     <AuthProvider>
       <ApiContextProvider>
-        <RouterProvider router={routes} />
+        <WishlistProvider>
+          <RouterProvider router={routes} />
+        </WishlistProvider>
       </ApiContextProvider>
     </AuthProvider>
+    
   </>
 }
 

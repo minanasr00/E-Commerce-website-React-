@@ -3,11 +3,12 @@ import { BiMenuAltLeft } from "react-icons/bi";
 import Products from './../Products/Products';
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
-
+import { useWishlist } from "../../contexts/WishlistContext.jsx";
 
 export default function Navbar() {
   const [isOpen,setIsOpen] = useState(false)
   const navigate = useNavigate();
+  const { wishlist } = useWishlist();
   return <>
     <nav className="font-[beatrice] p-4 flex justify-between items-center shadow-md fixed bg-white top-0 right-0  left-0 z-50 min-w-sm">
       <div className="flex items-center space-x-6">
@@ -19,12 +20,16 @@ export default function Navbar() {
         {isOpen && <div className="md:hidden space-x-4 absolute flex flex-col top-6 left-10  rounded-2xl px-3 shadow-2xl w-48 z-10 mt-3 bg-white backdrop-blur-md ">
           <Link to="/" className=" text-black hover:text-gray-700">Home</Link>
         <Link to="/products" className="text-black hover:text-gray-700">Products</Link>
-        <Link to="/about" className="text-black hover:text-gray-700">about</Link>
+        <Link to="/about" className="text-black hover:text-gray-700">About</Link>
+        {/* <Link to="/wishlist" className="text-black hover:text-gray-700">Wishlist</Link> */}
+
         </div> }
         <div className=" space-x-4 sm:hidden md:flex">
           <Link to="/" className="text-black hover:text-gray-700">Home</Link>
         <Link to="/products" className="text-black hover:text-gray-700">Products</Link>
-        <Link to="/about" className="text-black hover:text-gray-700">about</Link>
+        <Link to="/about" className="text-black hover:text-gray-700">About</Link>
+        {/* <Link to="/wishlist" className="text-black hover:text-gray-700">Wishlist </Link> */}
+
         </div>
       </div>
 
@@ -35,17 +40,27 @@ export default function Navbar() {
       </div>
 
       {/* Right side - Icons */}
-      <div className="flex items-center space-x-4 ">
-           <svg
-            className=" cursor-pointer rotate-315 bg-black rounded-full p-1"
-            xmlns="http://www.w3.org/2000/svg"
-            height="35px"
-            viewBox="0 -960 960 960"
-            width="35px"
-            fill="#ffffff"
-          >
-            <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" />
-          </svg>
+      <div className="flex items-center space-x-4">
+  <Link to="/wishlist" className="relative">
+    <svg
+      className="cursor-pointer rotate-315 bg-black rounded-full p-1"
+      xmlns="http://www.w3.org/2000/svg"
+      height="35px"
+      viewBox="0 -960 960 960"
+      width="35px"
+      fill="#ffffff"
+    >
+      <path d="m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z" />
+    </svg>
+
+    {/* Wishlist Count Badge */}
+    {wishlist.length > 0 && (
+      <span className="absolute -top-1 -right-1 bg-gray-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+        {wishlist.length}
+      </span>
+    )}
+  </Link>
+
 
         <div onClick={() => navigate("/cart")} className="flex items-center "  >
           <button  className="bg-black text-white px-4 py-2 rounded-full focus:outline-none cursor-pointer sm:hidden md:block">Cart</button>

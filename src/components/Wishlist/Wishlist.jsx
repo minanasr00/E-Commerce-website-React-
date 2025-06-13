@@ -1,95 +1,76 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useWishlist } from "../../contexts/WishlistContext.jsx"; 
 
-const initialWishlistItems = [
-  {
-    id: 1,
-    name: "Nike Air Max",
-    description: "Comfortable running shoes with modern design.",
-    price: 3200,
-    image: "https://placehold.co/300x200/EEE/333?text=Nike+Air+Max",
-  },
-  {
-    id: 2,
-    name: "Adidas Runner",
-    description: "Perfect fit for sports and gym workouts.",
-    price: 2900,
-    image: "https://placehold.co/300x200/FFD700/000?text=Adidas+Runner",
-  },
-  {
-    id: 3,
-    name: "Puma Sneaker",
-    description: "Lightweight and stylish everyday sneakers.",
-    price: 3100,
-    image: "https://placehold.co/300x200/87CEEB/000?text=Puma+Sneaker",
-  },
-  {
-    id: 4,
-    name: "Reebok Classic",
-    description: "Timeless design with ultimate comfort.",
-    price: 2700,
-    image: "https://placehold.co/300x200/FF69B4/000?text=Reebok+Classic",
-  },
-];
-
-export default function Wishlist() {
-  const [wishlist, setWishlist] = useState(initialWishlistItems);
-
-  const removeFromWishlist = (id) => {
-    setWishlist((prev) => prev.filter((item) => item.id !== id));
-  };
+const Wishlist = () => {
+  const { wishlist, toggleWishlist } = useWishlist();
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-4xl font-bold text-center mb-10 text-gray-800">
-        My Wishlist 💖
-      </h1>
-
+    <div className="p-6 min-h-screen bg-gradient-to-br from-[#fdfbfb] to-[#ebedee]">
       {wishlist.length === 0 ? (
-        <p className="text-center text-lg text-gray-600">No items in wishlist.</p>
+  <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-6">
+    <p className="text-6xl font-bold text-center text-black-600 tracking-tight mt-20 mb-20">
+      Your Wishlist is Empty...
+    </p>
+    <Link
+      to="/products"
+      className="bg-neutral-300 text-black font-semibold px-6 py-2 text-3xl hover:bg-black hover:text-white transition"
+    >
+      Browse Products
+    </Link>
+        </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {wishlist.map((item) => (
-            <div
-              key={item.id}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-xl"
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h2 className="text-lg font-semibold text-gray-800">
-                  {item.name}
-                </h2>
-                <p className="text-sm text-gray-600 mt-1 line-clamp-2">
-                  {item.description}
-                </p>
-                <p className="text-base text-gray-700 font-bold mt-2">
-                  {item.price} EGP
-                </p>
+        <div>
+          <h2 className="text-4xl font-bold mt-20 mb-10 text-center text-black-600 tracking-tight">
+            Your Wishlist
+          </h2>
 
-                <div className="mt-4 flex justify-between gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {wishlist.map((product) => (
+              <div
+                key={product.id}
+                className="bg-white shadow-lg hover:shadow-xl transition duration-300 overflow-hidden relative "
+              >
+                {/* X Icon to remove item */}
+                <button
+                  onClick={() => toggleWishlist(product)}
+                  className="absolute top-3 right-3 text-gray-500 text-4xl hover:text-black cursor-pointer font-bold"
+                  aria-label="Remove from wishlist"
+                >
+                  &times;
+                </button>
+
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="w-full h-64 object-cover"
+                />
+
+                <div className="p-5">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-1 line-clamp-1">
+                    {product.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm line-clamp-2 mb-3">
+                    {product.description}
+                  </p>
+
+                  <p className="text-2xl font-bold text-green-600 mb-4">
+                    ${product.price}
+                  </p>
+
                   <Link
-                    to={`/products/${item.id}`}
-                    className="w-1/2 bg-black text-white py-1 text-sm rounded-lg text-center hover:bg-gray-800"
+                    to={`/products/${product.id}`}
+                    className="block bg-neutral-300 text-black font-semibold text-center py-2 hover:bg-black hover:text-white transition "
                   >
-                     View Details
-
+                    View
                   </Link>
-                  <button
-                    onClick={() => removeFromWishlist(item.id)}
-                    className="w-1/2 bg-red-600 text-white py-1 text-sm rounded-lg hover:bg-red-700"
-                  >
-                    Remove From Wishlist
-                  </button>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </div>
   );
-}
+};
+
+export default Wishlist;

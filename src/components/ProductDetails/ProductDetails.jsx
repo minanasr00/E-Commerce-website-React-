@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useProducts } from '../../contexts/ProductsContext.jsx';
 import axios from 'axios';
-import { FaArrowLeft, FaHeart } from 'react-icons/fa';
+import { FaArrowLeft, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { useWishlist } from "../../contexts/WishlistContext";
 
 const colors = ['#d1d1d1', '#3b3b3b', '#1a1a1a', '#a7f3d0', '#f5f5f5', '#c7d2fe'];
 const sizes = ['XS', 'S', 'M', 'L', 'XL', '1XL'];
@@ -11,16 +12,14 @@ export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { products } = useProducts();
-
+const { toggleWishlist, isInWishlist } = useWishlist();
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState(null);
-  const [iconColor, setIconColor] = useState('grey');
+ 
   const [selectedColor, setSelectedColor] = useState(colors[2]);
   const [selectedSize, setSelectedSize] = useState('XS');
 
-  const toggleIconColor = () => {
-    setIconColor(prev => (prev === 'grey' ? '#000' : 'grey'));
-  };
+  
 
 
   useEffect(() => {
@@ -104,10 +103,16 @@ export default function ProductDetails() {
 
         {/* Product Details */}
         <div className="relative w-full max-w-sm bg-white p-10 flex flex-col justify-between mx-auto">
-          {/* Favorite Icon */}
-          <button onClick={toggleIconColor} className="absolute top-4 right-4 z-10 p-2">
-            <FaHeart size={22} color={iconColor} />
-          </button>
+          <button
+           onClick={() => toggleWishlist(product)}
+           className="absolute top-2 right-2 text-xl"
+         >
+           {isInWishlist(product.id) ? (
+             <FaHeart className="text-black-500 " />
+           ) : (
+             <FaRegHeart className="text-black-400" />
+           )}
+         </button>
 
           <div >
             <h1 className="text-lg font-mono mb-5">{product.title}</h1>

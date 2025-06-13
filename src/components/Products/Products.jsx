@@ -2,6 +2,8 @@ import React, { useState, useMemo } from "react";
 import { useProducts } from "../../contexts/ProductsContext";
 import Filters from "./Filters";
 import { Link } from "react-router-dom";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useWishlist } from "../../contexts/WishlistContext";
 
 const Products = () => {
   const { products, loading } = useProducts();
@@ -42,6 +44,7 @@ const Products = () => {
     () => [...new Set(products.map((p) => p.brand))],
     [products]
   );
+const { toggleWishlist, isInWishlist } = useWishlist();
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
@@ -100,16 +103,31 @@ const Products = () => {
           </div>
         </div>
         <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  
+
           {currentProducts.map((product) => (
             <div
               key={product.id}
-              className="bg-white p-4 rounded-xl shadow-md hover:shadow-xl hover:scale-[1.02] transition-transform duration-300 relative"
+              className="bg-white p-4  shadow-md hover:shadow-xl hover:scale-[1.02] transition-transform duration-300 relative"
             >
-              <img
-                src={product.thumbnail}
-                alt={product.title}
-                className="w-full h-64 object-cover rounded-lg"
-              />
+              <div className="relative">
+  <img
+    src={product.thumbnail}
+    alt={product.title}
+    className="w-full h-64 object-cover rounded-lg"
+  />
+
+  <button
+  onClick={() => toggleWishlist(product)}
+  className="absolute top-2 right-2 text-xl"
+>
+  {isInWishlist(product.id) ? (
+    <FaHeart className="text-black-500 " />
+  ) : (
+    <FaRegHeart className="text-black-400" />
+  )}
+</button>
+</div>
               <h3 className="text-lg font-semibold mb-1 line-clamp-1">
                 {product.title}
               </h3>
@@ -129,11 +147,11 @@ const Products = () => {
               <div className="flex justify-between mt-4 space-x-2">
                 <Link
                   to={`/products/${product.id}`}
-                  className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition text-center flex-1"
+                  className=" bg-neutral-300 text-black font-semibold text-center py-2 hover:bg-black hover:text-white transition  flex-1"
                 >
                  View Details
                 </Link>
-                <button className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition">
+                <button className="bg-black text-white px-4 py-2  hover:bg-gray-800 transition cursor-pointer">
                   Add to Cart
                 </button>
               </div>
