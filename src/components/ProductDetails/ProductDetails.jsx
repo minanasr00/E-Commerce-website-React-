@@ -64,11 +64,12 @@ const { toggleWishlist, isInWishlist } = useWishlist();
     : [product.thumbnail];
 
   return (
-    <div className="font-[beatrice] min-h-screen bg-[#f7f7f7] py-12 px-4 relative">
+   <div className="relative max-w-6xl mx-auto flex flex-col md:flex-row gap-12 mt-10">
+
       {/* Back Button */}
       <button
         onClick={() => navigate('/products')}
-        className="absolute top-10 left-4 text-2xl text-gray-700 hover:text-black cursor-pointer"
+        className="absolute top-15 left-0 text-2xl text-gray-700 hover:text-black cursor-pointer"
       >
         <FaArrowLeft />
       </button>
@@ -105,7 +106,7 @@ const { toggleWishlist, isInWishlist } = useWishlist();
         <div className="relative w-full max-w-sm bg-white p-10 flex flex-col justify-between mx-auto">
           <button
            onClick={() => toggleWishlist(product)}
-           className="absolute top-2 right-2 text-xl"
+           className="absolute top-8 right-10 text-xl"
          >
            {isInWishlist(product.id) ? (
              <FaHeart className="text-black-500 " />
@@ -118,7 +119,7 @@ const { toggleWishlist, isInWishlist } = useWishlist();
             <h1 className="text-lg font-mono mb-5">{product.title}</h1>
             <p className="text-xl mt-2 font-mono mb-5">${product.price}</p>
             <p className="text-[15px] text-gray-500 mt-1 mb-5">MRP incl. of all taxes</p>
-            <p className="mt-6 text-gray-800 text-[17px] leading-6 font-sans mb-30">{product.description}</p>
+            <p className="mt-6 text-gray-800 text-[17px] leading-6 font-sans mb-3">{product.description}</p>
 
             {/* Color Picker */}
             <div className="mb-5">
