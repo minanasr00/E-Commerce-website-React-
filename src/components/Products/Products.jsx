@@ -119,7 +119,7 @@ const { toggleWishlist, isInWishlist } = useWishlist();
 
   <button
   onClick={() => toggleWishlist(product)}
-  className="absolute top-2 right-2 text-xl"
+  className="absolute top-2 right-2 text-xl cursor-pointer"
 >
   {isInWishlist(product.id) ? (
     <FaHeart className="text-black-500 " />
