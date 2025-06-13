@@ -72,7 +72,8 @@ const isClothing = ['clothing', 'apparel', 'fashion', 't-shirts', 'shirts', 'pan
         <FaArrowLeft />
       </button>
 
-      <div className="flex flex-col md:flex-row gap-12 mt-8">
+      <div className="flex flex-col md:flex-row gap-12 mt-8 items-center">
+
         {/* Images Section */}
         <div className="flex flex-col md:flex-row gap-6 w-full">
           <div className="w-full md:w-[400px] h-[400px] md:h-[550px] self-center">
@@ -98,7 +99,8 @@ const isClothing = ['clothing', 'apparel', 'fashion', 't-shirts', 'shirts', 'pan
         </div>
 
         {/* Product Details */}
-        <div className="relative w-full max-w-sm bg-white p-6 flex flex-col justify-between h-[550px] shadow-sm border self-center">
+        <div className="relative w-full max-w-sm bg-white p-6 flex flex-col justify-between shadow-sm border self-center">
+
           {/* Wishlist Button */}
           <button
             onClick={() => toggleWishlist(product)}
@@ -111,7 +113,7 @@ const isClothing = ['clothing', 'apparel', 'fashion', 't-shirts', 'shirts', 'pan
             )}
           </button>
 
-          <div className="overflow-y-auto pr-2">
+          <div className="pr-2">
             <h1 className="text-xl font-semibold mb-2">{product.title}</h1>
             <p className="text-lg mb-2">${product.price}</p>
             <p className="text-sm text-gray-500 mb-4">MRP incl. of all taxes</p>
