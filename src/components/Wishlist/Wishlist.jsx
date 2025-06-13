@@ -24,49 +24,51 @@ const Wishlist = () => {
             Your Wishlist
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {wishlist.map((product) => (
-              <div
-                key={product.id}
-                className="bg-white shadow-lg hover:shadow-xl transition duration-300 overflow-hidden relative "
-              >
-                {/* X Icon to remove item */}
-                <button
-                  onClick={() => toggleWishlist(product)}
-                  className="absolute top-3 right-3 text-gray-500 text-4xl hover:text-black cursor-pointer font-bold"
-                  aria-label="Remove from wishlist"
-                >
-                  &times;
-                </button>
+<div className="flex flex-wrap justify-center gap-4">
+  {wishlist.map((product) => (
+    <div
+      key={product.id}
+      className="w-[240px] bg-white shadow-md hover:shadow-lg transition duration-300 overflow-hidden relative rounded-lg"
+    >
+      {/* زر الإزالة (X) */}
+      <button
+        onClick={() => toggleWishlist(product)}
+        className="absolute top-2 right-2 text-gray-500 text-xl hover:text-black cursor-pointer font-bold"
+        aria-label="Remove from wishlist"
+      >
+        &times;
+      </button>
 
-                <img
-                  src={product.thumbnail}
-                  alt={product.title}
-                  className="w-full h-64 object-cover"
-                />
+      <img
+        src={product.thumbnail}
+        alt={product.title}
+        className="w-full h-36 object-cover"
+      />
 
-                <div className="p-5">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-1 line-clamp-1">
-                    {product.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm line-clamp-2 mb-3">
-                    {product.description}
-                  </p>
+      <div className="p-3">
+        <h3 className="text-sm font-semibold text-gray-800 mb-1 line-clamp-1">
+          {product.title}
+        </h3>
+        <p className="text-gray-600 text-xs line-clamp-2 mb-2">
+          {product.description}
+        </p>
 
-                  <p className="text-2xl font-bold text-green-600 mb-4">
-                    ${product.price}
-                  </p>
+        <p className="text-base font-bold text-green-600 mb-3">
+          ${product.price}
+        </p>
 
-                  <Link
-                    to={`/products/${product.id}`}
-                    className="block bg-neutral-300 text-black font-semibold text-center py-2 hover:bg-black hover:text-white transition "
-                  >
-                    View
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+        <Link
+          to={`/products/${product.id}`}
+          className="block bg-neutral-300 text-black text-sm font-medium text-center py-1 hover:bg-black hover:text-white transition"
+        >
+          View Details
+        </Link>
+      </div>
+    </div>
+  ))}
+</div>
+
+
         </div>
       )}
     </div>
