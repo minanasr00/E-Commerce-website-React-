@@ -28,9 +28,9 @@ const Wishlist = () => {
   {wishlist.map((product) => (
     <div
       key={product.id}
-      className="w-[240px] bg-white shadow-md hover:shadow-lg transition duration-300 overflow-hidden relative rounded-lg"
+      className="w-[240px] bg-white shadow-md hover:shadow-lg transition duration-300 overflow-hidden relative "
     >
-      {/* زر الإزالة (X) */}
+      {/*(X) */}
       <button
         onClick={() => toggleWishlist(product)}
         className="absolute top-2 right-2 text-gray-500 text-xl hover:text-black cursor-pointer font-bold"
