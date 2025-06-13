@@ -16,19 +16,22 @@ import { ApiContextProvider } from './contexts/ApiContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { WishlistProvider } from './contexts/WishlistContext';
 import Wishlist from './components/Wishlist/Wishlist';
+import { ProductsProvider } from './contexts/ProductsContext';
+import Guard from './components/guard/Guard';
+import AuthGard from './components/authGuard/AuthGard';
 
 const routes = createBrowserRouter(
   [
-    { path: '/', element: <Layout/>  , children: [
-      { path: '/', element: <Home /> },
-      { path: '/about', element: <AboutPage /> },
-      { path: '/products', element: <Products /> },
-      { path: '/Wishlist', element: <Wishlist /> },
-      { path: '/products/:id', element: <ProductDetails /> },
-      { path: '/cart', element: <Cart/> },
-      { path: '/login', element: <Login /> },
-      { path: '/register', element: <Register /> },
-      { path: '*', element: <PageNotFound /> }
+    { path: '/', element: <Layout />  , children: [
+      { path: '/', element:<Home /> },
+      { path: '/about', element: <Guard><AboutPage /></Guard> },
+      { path: '/products', element: <Guard><Products /></Guard> },
+      { path: '/Wishlist', element: <Guard><Wishlist /></Guard> },
+      { path: '/products/:id', element: <Guard><ProductDetails /></Guard> },
+      { path: '/cart', element: <Guard><Cart/></Guard> },
+      { path: '/login', element: <AuthGard><Login /></AuthGard> },
+      { path: '/register', element: <AuthGard><Register /></AuthGard> },
+      { path: '*', element: <Guard><PageNotFound /></Guard> }
     ]}
   ]
 )
@@ -38,9 +41,11 @@ function App() {
   return <>
     <AuthProvider>
       <ApiContextProvider>
+        <ProductsProvider>
         <WishlistProvider>
           <RouterProvider router={routes} />
-        </WishlistProvider>
+          </WishlistProvider>
+          </ProductsProvider>
       </ApiContextProvider>
     </AuthProvider>
     

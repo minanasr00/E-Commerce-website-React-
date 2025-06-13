@@ -4,11 +4,15 @@ import Products from './../Products/Products';
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
 import { useWishlist } from "../../contexts/WishlistContext.jsx";
+import { AuthContext, useAuth } from '../../contexts/AuthContext.jsx';
 
 export default function Navbar() {
-  const [isOpen,setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isUserOpen, setIsUserOpen] = useState(false)
   const navigate = useNavigate();
   const { wishlist } = useWishlist();
+  const { token, setToken } = useAuth();
+
   return <>
     <nav className="font-[beatrice] p-4 flex justify-between items-center shadow-md fixed bg-white top-0 right-0  left-0 z-50 min-w-sm">
       <div className="flex items-center space-x-6">
@@ -21,14 +25,12 @@ export default function Navbar() {
           <Link to="/" className=" text-black hover:text-gray-700">Home</Link>
         <Link to="/products" className="text-black hover:text-gray-700">Products</Link>
         <Link to="/about" className="text-black hover:text-gray-700">About</Link>
-        {/* <Link to="/wishlist" className="text-black hover:text-gray-700">Wishlist</Link> */}
 
         </div> }
         <div className=" space-x-4 sm:hidden md:flex">
           <Link to="/" className="text-black hover:text-gray-700">Home</Link>
         <Link to="/products" className="text-black hover:text-gray-700">Products</Link>
         <Link to="/about" className="text-black hover:text-gray-700">About</Link>
-        {/* <Link to="/wishlist" className="text-black hover:text-gray-700">Wishlist </Link> */}
 
         </div>
       </div>
@@ -40,7 +42,7 @@ export default function Navbar() {
       </div>
 
       {/* Right side - Icons */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-10">
   <Link to="/wishlist" className="relative">
     <svg
       className="cursor-pointer rotate-315 bg-black rounded-full p-1"
@@ -62,16 +64,25 @@ export default function Navbar() {
   </Link>
 
 
-        <div onClick={() => navigate("/cart")} className="flex items-center "  >
+        <div onClick={() => navigate("/cart")} className="flex items-center"  >
           <button  className="bg-black text-white px-4 py-2 rounded-full focus:outline-none cursor-pointer sm:hidden md:block">Cart</button>
           <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center ml-[-8px] cursor-pointer">
            <MdOutlineShoppingBag />
           </div>
         </div>
-        <button className="text-black focus:outline-none">
+        <button className="text-black focus:outline-none relative" onClick={() => setIsUserOpen(!isUserOpen)}>
           <svg className="cursor-pointer w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
+          {isUserOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+              {token ? <Link to="/" onClick={() => { setToken(null) }} className="block px-4 py-2 text-black hover:bg-gray-100">Logout</Link> :
+                <> <Link to="/login" className="block px-4 py-2 text-black hover:bg-gray-100">Login</Link>
+                  <Link to="/register"  className="block px-4 py-2 text-black hover:bg-gray-100">Register</Link>
+                </>}
+              
+            </div>
+          )}
         </button>
       </div>
     </nav>

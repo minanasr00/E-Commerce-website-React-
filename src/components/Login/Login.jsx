@@ -33,7 +33,7 @@ export default function Login() {
       const token = res.data.token;
       if (token) {
         setToken(token);
-        localStorage.setItem("userToken", token);
+        // localStorage.setItem("Token", token);
         navigate("/");
       }
     } catch (error) {
@@ -107,7 +107,7 @@ export default function Login() {
 
           {/* Register Link */}
           <div className="mx-5 mt-10 py-3 flex items-center justify-center cursor-pointer">
-            <p className="text-base">Don't have an account? /Register</p>
+            <p className="text-base">Don't have an account? <span onClick={()=>{navigate("/register")}} className="text-blue-500">/Register</span></p>
           </div>
         </form>
       </div>

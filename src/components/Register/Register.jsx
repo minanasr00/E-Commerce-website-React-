@@ -4,7 +4,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useAuth } from "../../contexts/AuthContext";
 import styles from './Register.module.css';
 import img from "../../assets/7.jpg";
 
@@ -37,7 +36,7 @@ export default function Register() {
   });
 
   const navigate = useNavigate();
-  const { setToken } = useAuth();
+  // const { setToken } = useAuth();
   const [apiError, setApiError] = useState("");
 
   const onSubmit = async (data) => {
@@ -46,8 +45,8 @@ export default function Register() {
       const res = await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup", data);
       const token = res.data.token;
       if (token) {
-        setToken(token);
-        localStorage.setItem("userToken", token);
+        // setToken(token);
+        // localStorage.setItem("userToken", token);
         navigate("/login");
       }
     } catch (error) {
@@ -174,7 +173,7 @@ export default function Register() {
 
           {/* Login Link */}
           <div className="mx-5 py-3 flex items-center justify-center cursor-pointer">
-            <p className="text-base">Already have an account? /Login</p>
+            <p className="text-base">Already have an account? <span onClick={()=>{navigate("/login")}} className="text-blue-500">/Login</span></p>
           </div>
 
         </form>
