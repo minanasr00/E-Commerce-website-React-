@@ -12,24 +12,38 @@ import img7 from "../../assets/imgs/10.jpg"
 import img8 from "../../assets/imgs/11.jpg"
 import img9 from "../../assets/imgs/12.jpg"
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { ApiContext } from '../../contexts/ApiContext';
 import ProductCard from './productCard';
 import BeatLoader from './../../../node_modules/react-spinners/esm/BeatLoader';
+import { z } from 'zod';
 
 
 export default function Home() {
   const { homeData ,setCount ,count } = useContext(ApiContext);
+  const searchSchema = z.string().min(2, "Search must be at least 2 characters");
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+  const handleSearch = (e) => {
+  e.preventDefault();
+  const result = searchSchema.safeParse(searchTerm.trim());
+  if (!result.success) {
+    alert(result.error.issues[0].message); 
+    return;
+  }
+  navigate("/products", { state: { search: result.data } });
+  };
+
   return <>
     <div className='px-10 pt-25'>
       <div className="search flex flex-col xs:w-full md:w-[33.3%] gap-1">
         <Link to="/products" state={{category : "Men's Fashion"}} className='font-[beatrice]'>MEN</Link>
         <Link to="/products" state={{category : "Women's Fashion"}} className='font-[beatrice]'>WOMEN</Link>
-        <Link to="/products" state={{category : "Kids' Fashion"}} className='font-[beatrice]'>KIDS</Link>
-        <form className="mb-6">
+        <Link to="/products" state={{category : "Kids"}} className='font-[beatrice]'>KIDS</Link>
+        <form className="mb-6" onSubmit={handleSearch}>
           <div className="flex">
             <div className="relative w-full">
-              <input type="search" id="location-search" className="block p-2.5 w-full  text-sm text-gray-900 bg-[#D9D9D9]" placeholder="Search..." required />
+              <input type="search" id="location-search" className="block p-2.5 w-full  text-sm text-gray-900 bg-[#D9D9D9]" placeholder="Search..." required value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
               <button type="submit" className="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-black bg-[#D9D9D9]  hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
                 <svg className="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />

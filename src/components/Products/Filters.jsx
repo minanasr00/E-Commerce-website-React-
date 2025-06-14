@@ -6,7 +6,7 @@ const FilterSection = ({ title, children }) => {
   return (
     <div className="mb-4 border-b pb-2">
       <button
-        className="w-full flex justify-between items-center text-lg font-semibold mb-2 focus:outline-none"
+        className="w-full flex justify-between items-center text-lg font-semibold mb-2 focus:outline-none font-[beatrice]"
         onClick={() => setIsOpen(!isOpen)}
       >
         {title}
@@ -41,7 +41,7 @@ const Filters = ({
       <p className="text-sm text-gray-500 mb-4 font-[beatrice]">Save your time and filter the products here</p>
       <FilterSection title="Category">
         {categories.map((cat) => (
-          <label key={cat} className="block">
+          <label key={cat} className="block font-[Variable]">
             <input
               type="checkbox"
               checked={selectedFilters.categories.includes(cat)}
@@ -55,7 +55,7 @@ const Filters = ({
 
       <FilterSection title="Brand">
         {brands.map((brand) => (
-          <label key={brand} className="block">
+          <label key={brand} className="block font-[Variable]">
             <input
               type="checkbox"
               checked={selectedFilters.brands.includes(brand)}
@@ -73,7 +73,7 @@ const Filters = ({
             type="number"
             value={selectedFilters.priceRange.min}
             onChange={(e) => handleRangeChange("priceRange", "min", e.target.value)}
-            className="border p-1 w-full rounded"
+            className="border p-1 w-full rounded font-[Variable]"
             min={0}
             placeholder="Min"
           />
@@ -82,14 +82,14 @@ const Filters = ({
             type="number"
             value={selectedFilters.priceRange.max}
             onChange={(e) => handleRangeChange("priceRange", "max", e.target.value)}
-            className="border p-1 w-full rounded"
+            className="border p-1 w-full rounded font-[Variable]"
             placeholder="Max"
           />
         </div>
       </FilterSection>
 
       <FilterSection title="Availability">
-        <label className="block">
+        <label className="block font-[Variable]">
           <input
             type="radio"
             name="availability"
@@ -99,7 +99,7 @@ const Filters = ({
           />
           In Stock
         </label>
-        <label className="block">
+        <label className="block font-[Variable]">
           <input
             type="radio"
             name="availability"
@@ -109,7 +109,7 @@ const Filters = ({
           />
           Out of Stock
         </label>
-        <label className="block">
+        <label className="block font-[Variable]">
           <input
             type="radio"
             name="availability"
@@ -130,10 +130,10 @@ const Filters = ({
          value={selectedFilters.minRating}
          onChange={(e) =>
          onFilterChange("minRating", parseFloat(e.target.value))}
-         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm accent-yellow-500"
+         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-sm accent-yellow-500 font-[beatrice]"
          style={{
         accentColor: "#000000"}}/>
-        <p className="text-sm text-gray-700 mt-1">
+        <p className="text-sm text-gray-700 mt-1 font-[beatrice]">
           {selectedFilters.minRating} ★ or more
         </p>
       </FilterSection>

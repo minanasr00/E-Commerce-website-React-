@@ -6,7 +6,8 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useWishlist } from "../../contexts/WishlistContext";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";import { useEffect } from "react";
+
 
 const Products = () => {
   const { products, loading } = useProducts();
@@ -15,14 +16,40 @@ const {token} = useAuth()
   const productsPerPage = 9;
   const { state } = useLocation();
   console.log(state);
+  const [searchTerm, setSearchTerm] = useState("");
+
 
   const [selectedFilters, setSelectedFilters] = useState({
     categories: [],
     brands: [],
-    priceRange: { min: 0, max: 10000 },
+    priceRange: { min: "", max: "" },
     availability: null,
     minRating: 0,
   });
+
+  useEffect(() => {
+    if (state?.search) {
+    setSearchTerm(state.search.toLowerCase());
+    setCurrentPage(1);
+  }
+
+  if (state?.category && state.category !== "Kids") {
+    setSelectedFilters((prev) => ({
+      ...prev,
+      categories: [state.category],
+    }));
+    setCurrentPage(1);
+  } else if (state?.category === "Kids") {
+    setSelectedFilters({
+      categories: [],
+      brands: [],
+      priceRange: { min: "", max: "" },
+      availability: null,
+      minRating: 0,
+    });
+    setCurrentPage(1);
+  }
+}, [state]);
 
   const handleFilterChange = (type, value) => {
     setSelectedFilters((prev) => {
@@ -54,6 +81,12 @@ const {token} = useAuth()
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
+      const matchsSearch = 
+        searchTerm === "" ||
+        product.title.toLowerCase().includes(searchTerm) ||
+        product.description.toLowerCase().includes(searchTerm) ||
+        product.category.toLowerCase().includes(searchTerm);
+
       const categoryMatch =
         selectedFilters.categories.length === 0 ||
         selectedFilters.categories.includes(product.category);
@@ -62,9 +95,10 @@ const {token} = useAuth()
         selectedFilters.brands.length === 0 ||
         selectedFilters.brands.includes(product.brand);
 
-      const priceMatch =
-        product.price >= selectedFilters.priceRange.min &&
-        product.price <= selectedFilters.priceRange.max;
+      const priceMin = selectedFilters.priceRange.min === "" ? 0 : selectedFilters.priceRange.min;
+      const priceMax = selectedFilters.priceRange.max === "" ? Infinity : selectedFilters.priceRange.max;
+
+      const priceMatch = product.price >= priceMin && product.price <= priceMax;
 
       const availabilityMatch =
         selectedFilters.availability === null ||
@@ -74,6 +108,7 @@ const {token} = useAuth()
       const ratingMatch = product.rating >= (selectedFilters.minRating || 0);
 
       return (
+        matchsSearch &&
         categoryMatch &&
         brandMatch &&
         priceMatch &&
@@ -81,7 +116,7 @@ const {token} = useAuth()
         ratingMatch
       );
     });
-  }, [products, selectedFilters]);
+  }, [products, selectedFilters, searchTerm]);
 
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   const indexOfLast = currentPage * productsPerPage;
@@ -96,6 +131,11 @@ const {token} = useAuth()
     <div className="bg-gradient-to-br from-[#fdfbfb] to-[#ebedee] min-h-screen p-6 pt-20">
       <h2 className="font-[beatrice] text-3xl font-bold text-center mb-8">Our Products</h2>
 
+      {searchTerm && (
+        <p className="text-center text-xl text-gray-700 font-medium mb-6 font-[beatrice]">
+          Showing results for: <span className="font-semibold text-black">{searchTerm}</span>
+        </p>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="md:col-span-1">
           <div className="bg-white p-4 rounded-xl shadow-md max-h-[80vh] overflow-y-auto sticky top-24">
@@ -135,14 +175,14 @@ const {token} = useAuth()
               <p className="text-gray-600 text-sm mb-2 line-clamp-2">
                 {product.description}
               </p>
-              <p className="text-2xl font-bold text-green-600 mb-1">
+              <p className="text-2xl font-bold text-green-600 mb-1 font-[beatrice]">
                 ${product.price}
               </p>
               <p
                 className={`text-sm mb-1 ${
                   product.stock > 0
                     ? "text-green-600"
-                    : "text-red-600 font-[beatrice]"
+                    : "text-red-600"
                 }`}
               >
                 In Stock: {product.stock > 0 ? "Yes" : "No"}
@@ -153,13 +193,13 @@ const {token} = useAuth()
               <div className="flex justify-between mt-4 space-x-2">
                 <Link
                   to={`/products/${product.id}`}
-                  className="font-[beatrice] bg-neutral-300 text-black font-semibold text-center py-2 hover:bg-black hover:text-white transition  flex-1"
+                  className="font-[beatrice] bg-neutral-300 text-black font-semibold text-center py-2 hover:bg-black hover:text-white transition  flex-1 font-[beatrice]"
                 >
                   View Details
                 </Link>
                 <button
                   onClick={() => handleAddToCart(product.id)}
-                  className="font-[beatrice] bg-black text-white px-4 py-2  hover:bg-gray-800 transition cursor-pointer"
+                  className="font-[beatrice] bg-black text-white px-4 py-2  hover:bg-gray-800 transition cursor-pointer font-[beatrice]"
                 >
                   Add to Cart
                 </button>
@@ -174,7 +214,7 @@ const {token} = useAuth()
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-black text-white rounded disabled:opacity-50"
+            className="px-4 py-2 bg-black text-white rounded disabled:opacity-50 font-[beatrice]"
           >
             Prev
           </button>
@@ -182,7 +222,7 @@ const {token} = useAuth()
             <button
               key={index}
               onClick={() => setCurrentPage(index + 1)}
-              className={`px-4 py-2 rounded ${
+              className={`px-4 py-2 rounded font-[beatrice] ${
                 currentPage === index + 1
                   ? "bg-black text-white"
                   : "bg-white text-black border border-gray-400"
@@ -196,7 +236,7 @@ const {token} = useAuth()
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
             }
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-black text-white rounded disabled:opacity-50"
+            className="px-4 py-2 bg-black text-white rounded disabled:opacity-50 font-[beatrice]"
           >
             Next
           </button>
