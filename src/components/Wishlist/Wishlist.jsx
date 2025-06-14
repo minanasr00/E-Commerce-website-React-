@@ -1,12 +1,19 @@
 import { Link } from "react-router-dom";
 import { useWishlist } from "../../contexts/WishlistContext.jsx"; 
 
-const Wishlist = () => {
-  const { wishlist, toggleWishlist } = useWishlist();
+import { useEffect } from "react";
 
+const Wishlist = () => {
+  const { wishlist,deleteFromWish } = useWishlist();
+
+  useEffect(() => {
+    
+  }, [])
+  
+  
   return (
     <div className="p-6 min-h-screen bg-gradient-to-br from-[#fdfbfb] to-[#ebedee]">
-      {wishlist.length === 0 ? (
+      {wishlist?.length === 0 ? (
   <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-6">
     <p className="text-6xl font-bold text-center text-black-600 tracking-tight mt-20 mb-20">
       Your Wishlist is Empty...
@@ -25,14 +32,15 @@ const Wishlist = () => {
           </h2>
 
 <div className="flex flex-wrap justify-center gap-4">
-  {wishlist.map((product) => (
+  {wishlist?.map((product) => (
     <div
       key={product.id}
       className="w-[240px] bg-white shadow-md hover:shadow-lg transition duration-300 overflow-hidden relative "
     >
       {/*(X) */}
       <button
-        onClick={() => toggleWishlist(product)}
+        
+        onClick={() => deleteFromWish(product.id)}
         className="absolute top-2 right-2 text-gray-500 text-xl hover:text-black cursor-pointer font-bold"
         aria-label="Remove from wishlist"
       >
@@ -40,9 +48,9 @@ const Wishlist = () => {
       </button>
 
       <img
-        src={product.thumbnail}
+        src={product.imageCover}
         alt={product.title}
-        className="w-full h-36 object-cover"
+        className="w-full h-36 object-contain"
       />
 
       <div className="p-3">

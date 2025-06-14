@@ -48,7 +48,7 @@ const Products = () => {
     () => [...new Set(products.map((p) => p.brand))],
     [products]
   );
-  const { toggleWishlist, isInWishlist } = useWishlist();
+  const { toggleWishlist, isInWishlist ,deleteFromWish } = useWishlist();
   const { handleAddToCart } = useCart();
 
   const filteredProducts = useMemo(() => {
@@ -92,7 +92,7 @@ const Products = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-[#fdfbfb] to-[#ebedee] min-h-screen p-6">
+    <div className="bg-gradient-to-br from-[#fdfbfb] to-[#ebedee] min-h-screen p-6 pt-20">
       <h2 className="text-3xl font-bold text-center mb-8">Our Products</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -107,6 +107,7 @@ const Products = () => {
           </div>
         </div>
         <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  
           {currentProducts.map((product) => (
             <div
               key={product.id}
@@ -119,17 +120,14 @@ const Products = () => {
                   className="w-full h-64 object-cover rounded-lg"
                 />
 
-                <button
-                  onClick={() => toggleWishlist(product)}
-                  className="absolute top-2 right-2 text-xl cursor-pointer"
-                >
-                  {isInWishlist(product.id) ? (
-                    <FaHeart className="text-black-500 " />
-                  ) : (
-                    <FaRegHeart className="text-black-400" />
-                  )}
-                </button>
-              </div>
+<button  className="absolute top-2 right-2 text-xl cursor-pointer">
+  {isInWishlist(product.id) ? (
+    <FaHeart onClick={()=>{deleteFromWish(product.id)}}  className="text-black-500 " />
+  ) : (
+    <FaRegHeart onClick={() => toggleWishlist(product.id)} className="text-black-400" />
+  )}
+</button>
+</div>
               <h3 className="text-lg font-semibold mb-1 line-clamp-1">
                 {product.title}
               </h3>
