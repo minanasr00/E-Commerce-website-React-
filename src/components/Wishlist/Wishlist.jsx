@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import { useWishlist } from "../../contexts/WishlistContext.jsx"; 
-import axios from "axios";
-import { useAuth } from "../../contexts/AuthContext.jsx";
+
 import { useEffect } from "react";
 
 const Wishlist = () => {
-  const { wishlist, setWishlist ,deleteFromWish } = useWishlist();
-   const { token } = useAuth()
+  const { wishlist,deleteFromWish } = useWishlist();
 
   useEffect(() => {
     
