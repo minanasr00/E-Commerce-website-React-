@@ -20,6 +20,9 @@ import { ProductsProvider } from './contexts/ProductsContext';
 import Guard from './components/guard/Guard';
 import AuthGard from './components/authGuard/AuthGard';
 
+// Context
+import { CartContextProvider } from "./contexts/CartContext";
+
 const routes = createBrowserRouter(
   [
     { path: '/', element: <Layout />  , children: [
@@ -43,7 +46,9 @@ function App() {
       <ApiContextProvider>
         <ProductsProvider>
         <WishlistProvider>
-          <RouterProvider router={routes} />
+          <CartContextProvider>
+            <RouterProvider router={routes} />
+          </CartContextProvider>
           </WishlistProvider>
           </ProductsProvider>
       </ApiContextProvider>

@@ -1,7 +1,18 @@
-import { useCartData } from "./useCartData";
+import { useState } from "react";
+import { useCart } from "../../contexts/CartContext";
 
 export const Summary = () => {
-  const { totalPrice } = useCartData();
+  const [agreed, setAgreed] = useState(false);
+  const [error, setError] = useState(null);
+  const { totalPrice, clearCartProducts } = useCart();
+
+  const handleClearCart = () => {
+    if (agreed) {
+      clearCartProducts();
+    } else {
+      setError("You need to agree to the Terms and Conditions.");
+    }
+  };
 
   return (
     <div className="p-[20px] border-1 border-[#D9D9D9] m-3">
@@ -19,7 +30,7 @@ export const Summary = () => {
         <h2>
           Total <span className="text-xs text-[#949494]">( TAX INCL. )</span>
         </h2>
-        <p>$190</p>
+        {totalPrice && <p>${totalPrice + 10}</p>}
       </div>
       <div className="mb-[20px]">
         <input
@@ -27,16 +38,22 @@ export const Summary = () => {
           name=""
           id="terms"
           className="mr-[10px] cursor-pointer"
+          value={agreed}
+          onChange={() => setAgreed((prev) => !prev)}
         />
         <label htmlFor="terms" className="text-[#aeaeae] cursor-pointer">
           I agree to the Terms and Conditions
         </label>
       </div>
       <div className="flex justify-center">
-        <button className="px-[24px] py-[12px] bg-[#D9D9D9] rounded-[8px] cursor-pointer">
+        <button
+          className="px-[24px] py-[12px] bg-[#D9D9D9] rounded-[8px] cursor-pointer"
+          onClick={handleClearCart}
+        >
           Proceed to Checkout
         </button>
       </div>
+      {error && <p className="mt-2 text-red-800">{error}</p>}
     </div>
   );
 };

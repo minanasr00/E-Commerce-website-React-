@@ -5,6 +5,7 @@ import { MdOutlineShoppingBag } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
 import { useWishlist } from "../../contexts/WishlistContext.jsx";
 import { AuthContext, useAuth } from '../../contexts/AuthContext.jsx';
+import { useCart } from "../../contexts/CartContext.jsx";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -12,6 +13,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { wishlist } = useWishlist();
   const { token, setToken } = useAuth();
+  const { numOfCartItems } = useCart();
 
   return <>
     <nav className="font-[beatrice] p-4 flex justify-between items-center shadow-md fixed bg-white top-0 right-0  left-0 z-50 min-w-sm">
@@ -64,11 +66,16 @@ export default function Navbar() {
   </Link>
 
 
-        <div onClick={() => navigate("/cart")} className="flex items-center"  >
+        <div onClick={() => navigate("/cart")} className="flex items-center relative"  >
           <button  className="bg-black text-white px-4 py-2 rounded-full focus:outline-none cursor-pointer sm:hidden md:block">Cart</button>
           <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center ml-[-8px] cursor-pointer">
            <MdOutlineShoppingBag />
           </div>
+          {numOfCartItems > 0 && (
+              <span className="absolute -top-1 -right-1 bg-gray-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+                {numOfCartItems}
+              </span>
+            )}
         </div>
         <button className="text-black focus:outline-none relative" onClick={() => setIsUserOpen(!isUserOpen)}>
           <svg className="cursor-pointer w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

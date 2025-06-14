@@ -1,27 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useProducts } from '../../contexts/ProductsContext.jsx';
-import axios from 'axios';
-import { FaArrowLeft, FaHeart, FaRegHeart } from 'react-icons/fa';
-import { useWishlist } from '../../contexts/WishlistContext';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useProducts } from "../../contexts/ProductsContext.jsx";
+import axios from "axios";
+import { FaArrowLeft, FaHeart, FaRegHeart } from "react-icons/fa";
+import { useWishlist } from "../../contexts/WishlistContext";
+import { useCart } from "../../contexts/CartContext.jsx";
 
-const colors = ['#d1d1d1', '#3b3b3b', '#1a1a1a', '#a7f3d0', '#f5f5f5', '#c7d2fe'];
-const sizes = ['XS', 'S', 'M', 'L', 'XL', '1XL'];
+const colors = [
+  "#d1d1d1",
+  "#3b3b3b",
+  "#1a1a1a",
+  "#a7f3d0",
+  "#f5f5f5",
+  "#c7d2fe",
+];
+const sizes = ["XS", "S", "M", "L", "XL", "1XL"];
 
 export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { products } = useProducts();
   const { toggleWishlist, isInWishlist } = useWishlist();
+  const { handleAddToCart } = useCart();
 
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [selectedColor, setSelectedColor] = useState(colors[2]);
-  const [selectedSize, setSelectedSize] = useState('XS');
+  const [selectedSize, setSelectedSize] = useState("XS");
 
   useEffect(() => {
     const loadProduct = async () => {
-      const found = products.find(p => p.id === id);
+      const found = products.find((p) => p.id === id);
       if (found?.images) {
         setProduct(found);
         setMainImage(found.thumbnail);
@@ -29,7 +38,9 @@ export default function ProductDetails() {
       }
 
       try {
-        const res = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
+        const res = await axios.get(
+          `https://ecommerce.routemisr.com/api/v1/products/${id}`
+        );
         const p = res.data.data;
         const formatted = {
           id: p.id,
@@ -56,24 +67,31 @@ export default function ProductDetails() {
   if (!product) return <div className="text-center py-10">Loading...</div>;
 
   const thumbnails = product.images?.length
-    ? [product.thumbnail, ...product.images.filter(img => img !== product.thumbnail)]
+    ? [
+        product.thumbnail,
+        ...product.images.filter((img) => img !== product.thumbnail),
+      ]
     : [product.thumbnail];
 
-const isClothing = ['clothing', 'apparel', 'fashion', 't-shirts', 'shirts', 'pants'].some(cat =>
-  product.category?.toLowerCase().includes(cat)
-);
+  const isClothing = [
+    "clothing",
+    "apparel",
+    "fashion",
+    "t-shirts",
+    "shirts",
+    "pants",
+  ].some((cat) => product.category?.toLowerCase().includes(cat));
   return (
     <div className="relative max-w-6xl mx-auto mt-30">
       {/* Back Button */}
       <button
-        onClick={() => navigate('/products')}
+        onClick={() => navigate("/products")}
         className="absolute top-0 left-0 text-2xl text-gray-700 hover:text-black cursor-pointer"
       >
         <FaArrowLeft />
       </button>
 
       <div className="flex flex-col md:flex-row gap-12 mt-8 items-center">
-
         {/* Images Section */}
         <div className="flex flex-col md:flex-row gap-6 w-full">
           <div className="w-full md:w-[400px] h-[400px] md:h-[550px] self-center">
@@ -91,7 +109,7 @@ const isClothing = ['clothing', 'apparel', 'fashion', 't-shirts', 'shirts', 'pan
                 alt={`Thumbnail ${i + 1}`}
                 onClick={() => setMainImage(img)}
                 className={`w-32 h-28 object-cover cursor-pointer border ml-20 ${
-                  mainImage === img ? 'border-black' : 'border-transparent'
+                  mainImage === img ? "border-black" : "border-transparent"
                 } opacity-60 hover:opacity-100 transition`}
               />
             ))}
@@ -100,7 +118,6 @@ const isClothing = ['clothing', 'apparel', 'fashion', 't-shirts', 'shirts', 'pan
 
         {/* Product Details */}
         <div className="relative w-full max-w-sm bg-white p-6 flex flex-col justify-between shadow-sm border self-center">
-
           {/* Wishlist Button */}
           <button
             onClick={() => toggleWishlist(product)}
@@ -128,45 +145,47 @@ const isClothing = ['clothing', 'apparel', 'fashion', 't-shirts', 'shirts', 'pan
                     key={idx}
                     onClick={() => setSelectedColor(color)}
                     className={`w-8 h-8 rounded-full border cursor-pointer ${
-                      selectedColor === color ? 'border-black' : 'border-gray-300'
+                      selectedColor === color
+                        ? "border-black"
+                        : "border-gray-300"
                     }`}
                     style={{ backgroundColor: color }}
                   />
                 ))}
               </div>
             </div>
-{isClothing && (
- <div className="mb-6">
-  <p className="text-sm font-medium mb-2">Size</p>
-  <div className="flex flex-wrap gap-2">
-    {sizes.map(size => (
-      <button
-        key={size}
-        onClick={() => setSelectedSize(size)}
-        className={`w-10 h-10 border text-sm cursor-pointer ${
-          selectedSize === size
-            ? 'bg-neutral-300'
-            : 'bg-white text-black border-gray-300'
-        }`}
-      >
-        {size}
-      </button>
-    ))}
-  </div>
-  <div className="mt-3 text-xs text-gray-500">
-    FIND YOUR SIZE | MEASUREMENT GUIDE
-  </div>
-</div>
-)}
-           {/* Size Picker */}
-
-
-           
+            {isClothing && (
+              <div className="mb-6">
+                <p className="text-sm font-medium mb-2">Size</p>
+                <div className="flex flex-wrap gap-2">
+                  {sizes.map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`w-10 h-10 border text-sm cursor-pointer ${
+                        selectedSize === size
+                          ? "bg-neutral-300"
+                          : "bg-white text-black border-gray-300"
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-3 text-xs text-gray-500">
+                  FIND YOUR SIZE | MEASUREMENT GUIDE
+                </div>
+              </div>
+            )}
+            {/* Size Picker */}
           </div>
 
           {/* Add to Cart Button */}
-          <button className="mt-4 w-full bg-neutral-300 text-black py-3 text-sm font-semibold hover:bg-black hover:text-white transition cursor-pointer">
-            ADD
+          <button
+            className="mt-4 w-full bg-neutral-300 text-black py-3 text-sm font-semibold hover:bg-black hover:text-white transition cursor-pointer"
+            onClick={() => product && handleAddToCart(product.id)}
+          >
+            Add to Cart
           </button>
         </div>
       </div>
