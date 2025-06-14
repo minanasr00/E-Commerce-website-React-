@@ -1,27 +1,12 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import styles from "./Login.module.css";
 
-const schema = z.object({
- email: z.string()
-  .email("Invalid email format")
-  .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email address")
-,
-
- password: z.string()
-  .regex(/^[A-Z][a-z0-9_]{2,8}$/, "Password must start with capital and be 3-9 chars."),
-
-});
-
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: zodResolver(schema),
-  });
+  const { register, handleSubmit } = useForm(); 
   const navigate = useNavigate();
   const { setToken } = useAuth();
   const [apiError, setApiError] = useState("");
@@ -33,8 +18,7 @@ export default function Login() {
       const token = res.data.token;
       if (token) {
         setToken(token);
-        // localStorage.setItem("Token", token);
-        navigate("/");
+        navigate("/"); 
       }
     } catch (error) {
       setApiError(error?.response?.data?.message || "Login failed");
@@ -42,8 +26,8 @@ export default function Login() {
   };
 
   return (
-    <div className={`w-full h-screen  ${styles.bg} flex items-center justify-center tracking-wider`}>
-      <div className={`w-11/12 sm:w-5/12 ${styles.glass} md:w-5/12 text-base `}>
+    <div className={`w-full h-screen ${styles.bg} flex items-center justify-center tracking-wider`}>
+      <div className={`w-11/12 sm:w-5/12 ${styles.glass} md:w-5/12 text-base`}>
         <div className="w-full text-center mb-5">
           <h2 className="text-3xl text-black font-semibold pt-3">Login</h2>
         </div>
@@ -57,7 +41,7 @@ export default function Login() {
               <input
                 id="email"
                 type="email"
-                placeholder="your Email Address :"
+                placeholder="Your Email Address:"
                 {...register("email")}
                 className="w-11/12 bg-transparent outline-none text-black placeholder-black py-2"
               />
@@ -65,7 +49,6 @@ export default function Login() {
                 <i className="fa-solid fa-envelope text-2xl"></i>
               </div>
             </div>
-            {errors.email && <p className="text-red-600 text-sm mt-2">{errors.email.message}</p>}
           </div>
 
           {/* Password Field */}
@@ -85,7 +68,6 @@ export default function Login() {
                 <i className="fa-solid fa-lock text-2xl"></i>
               </div>
             </div>
-            {errors.password && <p className="text-red-600 text-sm mt-2">{errors.password.message}</p>}
           </div>
 
           {/* Forgot Password */}
@@ -107,7 +89,12 @@ export default function Login() {
 
           {/* Register Link */}
           <div className="mx-5 mt-10 py-3 flex items-center justify-center cursor-pointer">
-            <p className="text-base">Don't have an account? <span onClick={()=>{navigate("/register")}} className="text-blue-500">/Register</span></p>
+            <p className="text-base">
+              Don't have an account?{" "}
+              <span onClick={() => navigate("/register")} className="text-blue-500">
+                /Register
+              </span>
+            </p>
           </div>
         </form>
       </div>
