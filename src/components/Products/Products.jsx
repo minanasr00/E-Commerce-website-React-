@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useWishlist } from "../../contexts/WishlistContext";
 import { useLocation } from "react-router-dom";
-import { addToCart } from "../../services/cart-service";
+import { useCart } from "../../contexts/CartContext";
 
 const Products = () => {
   const { products, loading } = useProducts();
@@ -49,6 +49,7 @@ const Products = () => {
     [products]
   );
   const { toggleWishlist, isInWishlist } = useWishlist();
+  const { handleAddToCart } = useCart();
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
@@ -89,14 +90,6 @@ const Products = () => {
   if (loading) {
     return <div className="text-center text-xl py-10">Loading products...</div>;
   }
-
-  const handleAddToCart = async (id) => {
-    try {
-      await addToCart(id);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div className="bg-gradient-to-br from-[#fdfbfb] to-[#ebedee] min-h-screen p-6">
