@@ -94,7 +94,7 @@ const {token} = useAuth()
 
   return (
     <div className="bg-gradient-to-br from-[#fdfbfb] to-[#ebedee] min-h-screen p-6 pt-20">
-      <h2 className="text-3xl font-bold text-center mb-8">Our Products</h2>
+      <h2 className="font-[beatrice] text-3xl font-bold text-center mb-8">Our Products</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="md:col-span-1">
@@ -153,13 +153,13 @@ const {token} = useAuth()
               <div className="flex justify-between mt-4 space-x-2">
                 <Link
                   to={`/products/${product.id}`}
-                  className=" bg-neutral-300 text-black font-semibold text-center py-2 hover:bg-black hover:text-white transition  flex-1"
+                  className="font-[beatrice] bg-neutral-300 text-black font-semibold text-center py-2 hover:bg-black hover:text-white transition  flex-1"
                 >
                   View Details
                 </Link>
                 <button
                   onClick={() => handleAddToCart(product.id)}
-                  className="bg-black text-white px-4 py-2  hover:bg-gray-800 transition cursor-pointer"
+                  className="font-[beatrice] bg-black text-white px-4 py-2  hover:bg-gray-800 transition cursor-pointer"
                 >
                   Add to Cart
                 </button>

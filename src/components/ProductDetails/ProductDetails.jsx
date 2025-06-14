@@ -182,7 +182,7 @@ export default function ProductDetails() {
 
           {/* Add to Cart Button */}
           <button
-            className="mt-4 w-full bg-neutral-300 text-black py-3 text-sm font-semibold hover:bg-black hover:text-white transition cursor-pointer"
+            className=" font-[beatrice] mt-4 w-full bg-neutral-300 text-black py-3 text-sm font-semibold hover:bg-black hover:text-white transition cursor-pointer"
             onClick={() => product && handleAddToCart(product.id)}
           >
             Add to Cart

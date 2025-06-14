@@ -15,19 +15,19 @@ const Wishlist = () => {
     <div className="p-6 min-h-screen bg-gradient-to-br from-[#fdfbfb] to-[#ebedee]">
       {wishlist?.length === 0 ? (
   <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-6">
-    <p className="text-6xl font-bold text-center text-black-600 tracking-tight mt-20 mb-20">
+    <p className="font-[beatrice] text-4xl font-bold text-center text-black-600 tracking-tight mt-20 mb-20">
       Your Wishlist is Empty...
     </p>
     <Link
       to="/products"
-      className="bg-neutral-300 text-black font-semibold px-6 py-2 text-3xl hover:bg-black hover:text-white transition"
+      className="font-[beatrice] bg-neutral-300 text-black font-semibold px-6 py-2 text-3xl hover:bg-black hover:text-white transition"
     >
       Browse Products
     </Link>
         </div>
       ) : (
         <div>
-          <h2 className="text-4xl font-bold mt-20 mb-10 text-center text-black-600 tracking-tight">
+          <h2 className="font-[beatrice] text-4xl font-bold mt-20 mb-10 text-center text-black-600 tracking-tight">
             Your Wishlist
           </h2>
 
@@ -67,7 +67,7 @@ const Wishlist = () => {
 
         <Link
           to={`/products/${product.id}`}
-          className="block bg-neutral-300 text-black text-sm font-medium text-center py-1 hover:bg-black hover:text-white transition"
+          className="font-[beatrice] block bg-neutral-300 text-black text-sm font-medium text-center py-1 hover:bg-black hover:text-white transition"
         >
           View Details
         </Link>

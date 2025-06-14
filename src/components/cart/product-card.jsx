@@ -61,11 +61,11 @@ export const ProductCard = ({ data }) => {
                 ×
               </button>
             </div>
-            <p className="mb-[10px]">L</p>
-            <div className="h-[20px] w-[20px] bg-black"></div>
+            {/* <p className="mb-[10px]">L</p> */}
+            {/* <div className="h-[20px] w-[20px] bg-black"></div> */}
             <div className="flex flex-col">
               <button
-                className="border-1 cursor-pointer"
+                className="h-[20px] w-[20px] border-1 cursor-pointer"
                 disabled={loading}
                 onClick={() => !loading && handleUpdateCount("increase")}
               >
