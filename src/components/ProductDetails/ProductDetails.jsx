@@ -12,7 +12,7 @@ export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { products } = useProducts();
-  const { toggleWishlist, isInWishlist } = useWishlist();
+  const { toggleWishlist, isInWishlist , deleteFromWish} = useWishlist();
 
   const [product, setProduct] = useState(null);
   const [mainImage, setMainImage] = useState(null);
@@ -103,13 +103,13 @@ const isClothing = ['clothing', 'apparel', 'fashion', 't-shirts', 'shirts', 'pan
 
           {/* Wishlist Button */}
           <button
-            onClick={() => toggleWishlist(product)}
+            
             className="absolute top-6 right-6 text-xl"
           >
             {isInWishlist(product.id) ? (
-              <FaHeart className="text-black" />
+              <FaHeart onClick={() => deleteFromWish(product.id)} className="text-black" />
             ) : (
-              <FaRegHeart className="text-gray-400" />
+              <FaRegHeart onClick={() => toggleWishlist(product.id)} className="text-gray-400" />
             )}
           </button>
 

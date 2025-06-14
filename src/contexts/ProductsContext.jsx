@@ -23,7 +23,6 @@ export const ProductsProvider = ({ children }) => {
           thumbnail: product.imageCover,
         }));
         setProducts(mappedProducts);
-        console.log("Total products from new API:", mappedProducts.length);
       } catch (error) {
         console.error("Failed to fetch products:", error);
       } finally {

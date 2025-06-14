@@ -1,39 +1,91 @@
+import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { useAuth } from "./AuthContext";
+import toast from "react-hot-toast";
 
-// 1. إنشاء السياق
+
 const WishlistContext = createContext();
 
-// 2. هوك مخصص للاستخدام بسهولة
 export const useWishlist = () => useContext(WishlistContext);
 
-// 3. مزود السياق
 export const WishlistProvider = ({ children }) => {
-  const [wishlist, setWishlist] = useState(() => {
-    const stored = localStorage.getItem("wishlist");
-    return stored ? JSON.parse(stored) : [];
-  });
+  const [wishlist, setWishlist] = useState();
+  const { token } = useAuth()
 
+  async function deleteFromWish(id) {
+    try {
+      let res = await axios.delete(`https://ecommerce.routemisr.com/api/v1/wishlist/${id}`, {
+        headers: {
+          token: token
+        }
+      })
+      let data =await res.data
+      console.log(data);
+      if (data.status == 'success') {
+        toast.success('Product removed Successfully')
+        getUserWithList()
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something Went Wrong.")
+    }
+  }
+
+  async function toggleWishlist(id) {
+  try {
+    let res= await axios.post('https://ecommerce.routemisr.com/api/v1/wishlist', {productId : id}, {
+      headers: {
+        token
+      }
+    })
+    let data = res.data
+    console.log(data);
+    if (data.status == 'success') {
+      toast.success('Product Added Successfully')
+      getUserWithList()
+      }
+  } catch (error) {
+    console.log(error);
+    toast.error("Something Went Wrong.")
+  }
+    
+  };
+async function getUserWithList() {
+      try {
+        const response = await axios.get('https://ecommerce.routemisr.com/api/v1/wishlist', {
+          headers: {
+            token: token 
+          }
+        });
+        console.log(response.data);
+        
+        setWishlist(response.data?.data);
+      } catch (error) {
+        console.error("Error fetching wishlist:", error);
+      }
+    }
+ 
   // حفظ في localStorage عند التغيير
   useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  }, [wishlist]);
+    
+     
+    if (token) {
+      
+      getUserWithList();
+    }
+    
+  }, [token]);
+  
 
-  // التبديل بين الإضافة والإزالة
-  const toggleWishlist = (product) => {
-    setWishlist((prev) =>
-      prev.find((item) => item.id === product.id)
-        ? prev.filter((item) => item.id !== product.id)
-        : [...prev, product]
-    );
-  };
+  // // التبديل بين الإضافة والإزالة
 
   // هل المنتج موجود؟
   const isInWishlist = (productId) => {
-    return wishlist.some((item) => item.id === productId);
+    return wishlist?.some((item) => item._id === productId);
   };
 
   return (
-    <WishlistContext.Provider value={{ wishlist, toggleWishlist, isInWishlist }}>
+    <WishlistContext.Provider value={{ wishlist , toggleWishlist , isInWishlist , deleteFromWish ,setWishlist}}>
       {children}
     </WishlistContext.Provider>
   );

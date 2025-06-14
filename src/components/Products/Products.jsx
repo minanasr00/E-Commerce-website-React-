@@ -13,7 +13,6 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 9;
   const { state } = useLocation();
-  console.log(state);
   
 
 
@@ -50,7 +49,7 @@ const Products = () => {
     () => [...new Set(products.map((p) => p.brand))],
     [products]
   );
-const { toggleWishlist, isInWishlist } = useWishlist();
+const { toggleWishlist, isInWishlist ,deleteFromWish } = useWishlist();
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
@@ -110,7 +109,6 @@ const { toggleWishlist, isInWishlist } = useWishlist();
         </div>
         <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
   
-
           {currentProducts.map((product) => (
             <div
               key={product.id}
@@ -123,14 +121,11 @@ const { toggleWishlist, isInWishlist } = useWishlist();
     className="w-full h-64 object-cover rounded-lg"
   />
 
-  <button
-  onClick={() => toggleWishlist(product)}
-  className="absolute top-2 right-2 text-xl cursor-pointer"
->
+<button  className="absolute top-2 right-2 text-xl cursor-pointer">
   {isInWishlist(product.id) ? (
-    <FaHeart className="text-black-500 " />
+    <FaHeart onClick={()=>{deleteFromWish(product.id)}}  className="text-black-500 " />
   ) : (
-    <FaRegHeart className="text-black-400" />
+    <FaRegHeart onClick={() => toggleWishlist(product.id)} className="text-black-400" />
   )}
 </button>
 </div>

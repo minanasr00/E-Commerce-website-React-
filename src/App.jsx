@@ -19,6 +19,7 @@ import Wishlist from './components/Wishlist/Wishlist';
 import { ProductsProvider } from './contexts/ProductsContext';
 import Guard from './components/guard/Guard';
 import AuthGard from './components/authGuard/AuthGard';
+import { Toaster } from 'react-hot-toast';
 
 const routes = createBrowserRouter(
   [
@@ -39,6 +40,7 @@ const routes = createBrowserRouter(
 function App() {
 
   return <>
+    <div><Toaster/></div>
     <AuthProvider>
       <ApiContextProvider>
         <ProductsProvider>
