@@ -81,7 +81,33 @@ const AboutPage = () => {
             </p>
           </div>
         </div>
+        
       </div>
+      
+    <div className="footer  font-[beatrice] bg-[#F5F5F5] mt-20">
+      <div className='grid grid-cols-12  p-10'>
+        <div className='col-span-4 flex flex-col'>
+          <div className='mb-15'>
+            <h2 className='text-stone-500 text-[20px]'>info</h2>
+          <p className='text-[14px]'>pricing</p>
+          <p className='text-[14px]'>about</p>
+          <p className='text-[14px]'>contacts</p>
+        </div>
+          <div>
+            <h2 className='text-stone-500 text-[20px]'>Languages</h2>
+          <p className='text-[14px]'>English</p>
+          <p className='text-[14px]'>Spanish</p>
+          <p className='text-[14px]'>French</p>
+        </div>
+        </div>
+        <div className='col-span-4 flex flex-col justify-center items-center'>
+        <h2 className='text-stone-500 text-[20px] mb-4'>Technologies</h2>
+         <div className="w-10 h-10 bg-gradient-to-br from-white to-black transform rotate-45 mb-2"></div>
+          <div className='text-[80px] font-[inter] font-extrabold leading-[70px] text-gray-950'>XIV</div>
+          <div className='text-[80px] font-[inter] font-extrabold leading-[60px] text-gray-950'>QR</div>
+        </div>
+      </div>
+    </div>
     </div>
   );
 };
