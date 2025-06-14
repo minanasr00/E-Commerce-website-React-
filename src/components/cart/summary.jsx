@@ -47,7 +47,7 @@ export const Summary = () => {
       </div>
       <div className="flex justify-center">
         <button
-          className="px-[24px] py-[12px] bg-[#D9D9D9] rounded-[8px] cursor-pointer"
+          className="px-[24px] py-[12px] bg-[#D9D9D9]  cursor-pointer"
           onClick={handleClearCart}
         >
           Proceed to Checkout
