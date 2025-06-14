@@ -5,7 +5,7 @@ import { MdOutlineShoppingBag } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
 import { useWishlist } from "../../contexts/WishlistContext.jsx";
 import { AuthContext, useAuth } from '../../contexts/AuthContext.jsx';
-
+import styles from "./Navbar.module.css"
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isUserOpen, setIsUserOpen] = useState(false)
@@ -14,7 +14,7 @@ export default function Navbar() {
   const { token, setToken } = useAuth();
 
   return <>
-    <nav className="font-[beatrice] p-4 flex justify-between items-center shadow-md fixed bg-white top-0 right-0  left-0 z-50 min-w-sm">
+    <nav className={`font-[beatrice] ${styles.back} p-4 flex justify-between items-center shadow-md fixed  top-0 right-0  left-0 z-50 min-w-sm`}>
       <div className="flex items-center space-x-6">
         <button onClick={()=>{setIsOpen(!isOpen)}} className="text-black cursor-pointer focus:outline-none sm:block md:hidden relative">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

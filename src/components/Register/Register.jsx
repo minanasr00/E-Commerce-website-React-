@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from './Register.module.css';
-import img from "../../assets/7.jpg";
+import img from '../../assets/backGround2.jpg';
 
 // Schema
 const schema = z.object({
