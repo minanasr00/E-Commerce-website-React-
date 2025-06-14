@@ -14,10 +14,11 @@ import img9 from "../../assets/imgs/12.jpg"
 import { Link, useNavigate } from 'react-router-dom';
 import { ApiContext } from '../../contexts/ApiContext';
 import ProductCard from './productCard';
+import BeatLoader from './../../../node_modules/react-spinners/esm/BeatLoader';
 
 
 export default function Home() {
-  const { homeData } = useContext(ApiContext);
+  const { homeData ,setCount ,count } = useContext(ApiContext);
   const navigate = useNavigate();
   return <>
     <div className='px-10 pt-25'>
@@ -64,13 +65,13 @@ export default function Home() {
           <p onClick={() => navigate("/products")} className='cursor-pointer text-gray-700'>See All</p>
         </div>
         <div className='grid grid-cols-12 gap-14 mt-5 '>
-          {homeData?.map((item) => (
+          {homeData  ? homeData?.map((item) => (
             <ProductCard  key={item.id} product={item} />
-          ))}
+          )) : <div className='col-span-12 flex justify-center items-center'><BeatLoader size={25}  cssOverride={{display:"flex " , justifyContent:"center",alignItems:"center" ,width:"100px" ,height:"50px"}}/></div>  }
 
           <div className='col-span-12 gap-2 flex justify-center mt-5 w-full'>
-            <button><FaLongArrowAltLeft className='text-3xl border border-gray-500 cursor-pointer hover:bg-gray-300'/></button>
-            <button><FaLongArrowAltRight className='text-3xl border border-gray-500 cursor-pointer hover:bg-gray-300'/></button>
+            <button><FaLongArrowAltLeft onClick={()=>{setCount(count-1)}} className='text-3xl border border-gray-500 cursor-pointer hover:bg-gray-300'/></button>
+            <button><FaLongArrowAltRight onClick={()=>{setCount(count+1)}} className='text-3xl border border-gray-500 cursor-pointer hover:bg-gray-300'/></button>
           </div>
         </div>
       </div>

@@ -7,12 +7,22 @@ export function ApiContextProvider({ children }) {
     const baseUrl = 'https://ecommerce.routemisr.com/api/v1';
 
     const [homeData, setHomeData] = useState(null);
-    async function fetchHomeData() {
+    const [count, setCount] = useState(0);
+    async function fetchHomeData(count=0) {
         try {
             const res = await axios.get(`${baseUrl}/products`);
             if (res.status === 200) {
                 const data = await res.data?.data;
-                setHomeData(data.slice(16, 20 ));
+                if (count < 0) {
+                    setCount(0)
+                    
+                } else if (count > (data?.length-4)) {
+                    setCount((data?.length)-4)  
+                } else {
+                    setCount(count)
+                }
+                setHomeData(data.slice(count, count+4 ));
+                console.log(data);
                 
             } else {
                 console.error('Failed to fetch home data:', res.status);
@@ -23,10 +33,10 @@ export function ApiContextProvider({ children }) {
         }
     }
     useEffect(() => {
-       fetchHomeData();
-    }, []);
+       fetchHomeData(count);
+    }, [count]);
      return <>
-            <ApiContext.Provider value={{homeData}}>
+            <ApiContext.Provider value={{homeData ,setCount , count}}>
                 {children}
             </ApiContext.Provider>
         </>

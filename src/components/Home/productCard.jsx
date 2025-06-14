@@ -10,7 +10,7 @@ export default function ProductCard({ product }) {
                 <p className='text-gray-700 font-sans text-[16px]'>{product.category.name}</p>
                 <div className='flex items-center justify-between'>
                     <p className='text-[20px] font-semibold'>
-                        {product.title}
+                        {(product.title).slice(0,30)}
                     </p>
                     <p>
                         {product.price}$

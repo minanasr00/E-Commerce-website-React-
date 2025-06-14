@@ -7,30 +7,35 @@ import {
   updateCartItem,
 } from "../services/cart-service";
 
+
 const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  const [error, setError] = useState(null);
+  const token = localStorage.getItem("token")
 
   const fetchCartData = async () => {
-    try {
+    if (token) {
+      try {
       // setIsLoading(true);
       const cartData = await getCartItems();
       setData(cartData);
+      console.log(cartData);
+      
     } catch (error) {
       setError(error);
       console.error(error);
     } finally {
       setIsLoading(false);
     }
+    }
   };
 
   useEffect(() => {
     fetchCartData();
-  }, []);
+  }, [token]);
 
   const products = useMemo(
     () => data?.data?.products ?? [],
@@ -49,13 +54,15 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const updateCartProductCount = async (id, count) => {
-    try {
+    if (token) {
+      try {
       await updateCartItem(id, {
         count,
       });
       await fetchCartData();
     } catch (error) {
       console.error(error);
+    }
     }
   };
 
