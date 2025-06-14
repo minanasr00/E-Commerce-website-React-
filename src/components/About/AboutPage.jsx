@@ -26,7 +26,7 @@ const AboutPage = () => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-cover bg-center h-[350px] flex items-center justify-center text-white text-7xl font-bold uppercase relative animate-fadeInSlide" style={{ backgroundImage: `url(${bgImg})` }}>
+      <div className="bg-cover bg-center h-[350px] flex items-center justify-center text-white text-7xl font-bold uppercase relative animate-fadeInSlide mt-20" style={{ backgroundImage: `url(${bgImg})` }}>
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/30"></div>
         <span className="relative z-10 animate-fadeInText font-[beatrice]">About Us</span>
       </div>
