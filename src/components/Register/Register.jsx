@@ -19,7 +19,10 @@ const schema = z.object({
     .regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email address"),
 
   password: z.string()
-    .regex(/^[A-Z][a-z0-9_]{2,8}$/, "Password must start with capital and be 3-9 chars."),
+    .regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+      "Your password must be at least 6 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)."
+
+),
 
   rePassword: z.string(),
 

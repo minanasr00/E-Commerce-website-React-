@@ -13,6 +13,7 @@ export const CartContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
 
   const fetchCartData = async () => {
     try {
