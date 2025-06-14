@@ -1,9 +1,13 @@
-export const ProductCard = () => {
+export const ProductCard = ({ data }) => {
+  const { count, price, product } = data;
+
+  console.log("product", data);
+
   return (
     <div className="w-fit">
       <div className="flex gap-2">
         <div className="h-[350px] w-[300px] max-w-[100%] relative">
-          <img src="./5.jpg" alt="" className="w-full h-full" />
+          <img src={product?.imageCover} alt="" className="w-full h-full" />
           <button className=" absolute bottom-0 right-0 p-[4px] bg-[#fafafa] cursor-pointer">
             <svg
               className="rotate-315 "
@@ -26,17 +30,17 @@ export const ProductCard = () => {
             <div className="h-[20px] w-[20px] bg-black"></div>
             <div className="flex flex-col">
               <button className="border-1 cursor-pointer">+</button>
-              <span className="border-x-1 text-center">1</span>
+              <span className="border-x-1 text-center">{count}</span>
               <button className="border-1 cursor-pointer">-</button>
             </div>
           </div>
         </div>
       </div>
       <div className="">
-        <h3 className="text-[#a7a7a7]">Cotton T Shirt</h3>
+        <h3 className="text-[#a7a7a7]">{product?.category?.name}</h3>
         <div className="w-[300px] flex justify-between">
-          <h2 className="font-semibold">Full Sleeve Zipper</h2>
-          <p>$99</p>
+          <h2 className="font-semibold">{product?.title}</h2>
+          <p>${price}</p>
         </div>
       </div>
     </div>

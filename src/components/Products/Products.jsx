@@ -4,8 +4,8 @@ import Filters from "./Filters";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useWishlist } from "../../contexts/WishlistContext";
-import { useLocation } from 'react-router-dom';
-
+import { useLocation } from "react-router-dom";
+import { addToCart } from "../../services/cart-service";
 
 const Products = () => {
   const { products, loading } = useProducts();
@@ -13,8 +13,7 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 9;
   const { state } = useLocation();
-  
-
+  console.log(state);
 
   const [selectedFilters, setSelectedFilters] = useState({
     categories: [],
@@ -70,8 +69,7 @@ const { toggleWishlist, isInWishlist ,deleteFromWish } = useWishlist();
         (selectedFilters.availability === true && product.stock > 0) ||
         (selectedFilters.availability === false && product.stock === 0);
 
-      const ratingMatch =
-        product.rating >= (selectedFilters.minRating || 0);
+      const ratingMatch = product.rating >= (selectedFilters.minRating || 0);
 
       return (
         categoryMatch &&
@@ -91,6 +89,14 @@ const { toggleWishlist, isInWishlist ,deleteFromWish } = useWishlist();
   if (loading) {
     return <div className="text-center text-xl py-10">Loading products...</div>;
   }
+
+  const handleAddToCart = async (id) => {
+    try {
+      await addToCart(id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="bg-gradient-to-br from-[#fdfbfb] to-[#ebedee] min-h-screen p-6">
@@ -115,11 +121,11 @@ const { toggleWishlist, isInWishlist ,deleteFromWish } = useWishlist();
               className="bg-white p-4  shadow-md hover:shadow-xl hover:scale-[1.02] transition-transform duration-300 relative"
             >
               <div className="relative">
-  <img
-    src={product.thumbnail}
-    alt={product.title}
-    className="w-full h-64 object-cover rounded-lg"
-  />
+                <img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className="w-full h-64 object-cover rounded-lg"
+                />
 
 <button  className="absolute top-2 right-2 text-xl cursor-pointer">
   {isInWishlist(product.id) ? (
@@ -138,8 +144,13 @@ const { toggleWishlist, isInWishlist ,deleteFromWish } = useWishlist();
               <p className="text-2xl font-bold text-green-600 mb-1">
                 ${product.price}
               </p>
-              <p className={`text-sm mb-1 ${
-                product.stock > 0 ? "text-green-600" : "text-red-600 font-[beatrice]"}`}>
+              <p
+                className={`text-sm mb-1 ${
+                  product.stock > 0
+                    ? "text-green-600"
+                    : "text-red-600 font-[beatrice]"
+                }`}
+              >
                 In Stock: {product.stock > 0 ? "Yes" : "No"}
               </p>
               <p className="text-sm text-yellow-600 mb-4">
@@ -150,9 +161,12 @@ const { toggleWishlist, isInWishlist ,deleteFromWish } = useWishlist();
                   to={`/products/${product.id}`}
                   className=" bg-neutral-300 text-black font-semibold text-center py-2 hover:bg-black hover:text-white transition  flex-1"
                 >
-                 View Details
+                  View Details
                 </Link>
-                <button className="bg-black text-white px-4 py-2  hover:bg-gray-800 transition cursor-pointer">
+                <button
+                  onClick={() => handleAddToCart(product.id)}
+                  className="bg-black text-white px-4 py-2  hover:bg-gray-800 transition cursor-pointer"
+                >
                   Add to Cart
                 </button>
               </div>
@@ -184,7 +198,9 @@ const { toggleWishlist, isInWishlist ,deleteFromWish } = useWishlist();
             </button>
           ))}
           <button
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
             disabled={currentPage === totalPages}
             className="px-4 py-2 bg-black text-white rounded disabled:opacity-50"
           >

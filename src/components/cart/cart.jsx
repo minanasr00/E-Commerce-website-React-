@@ -1,8 +1,19 @@
 import Navbar from "../Navbar/Navbar";
 import { ProductCard } from "./product-card";
 import { Summary } from "./summary";
+import { useCartData } from "./useCartData";
 
 export const Cart = () => {
+  const { isLoading, data } = useCartData();
+
+  if (isLoading) {
+    return (
+      <div className="px-[24px] mt-20">
+        <div>Loading cart data</div>
+      </div>
+    );
+  }
+
   return (
     <div className="px-[24px]">
       <div className="max-w-screen-xl mx-auto mt-[50px] flex">
@@ -23,8 +34,9 @@ export const Cart = () => {
       </div>
       <div className="max-w-screen-xl mx-auto items-center flex flex-wrap gap-5 justify-between">
         <div className="flex flex-wrap gap-7 border-y-1 border-[#C9C9C9] py-3">
-          <ProductCard />
-          <ProductCard />
+          {data.map((product) => (
+            <ProductCard key={product._id} data={product} />
+          ))}
         </div>
         <Summary />
       </div>
