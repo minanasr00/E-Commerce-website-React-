@@ -72,7 +72,7 @@ export default function Navbar() {
           <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center ml-[-8px] cursor-pointer">
            <MdOutlineShoppingBag />
           </div>
-          {numOfCartItems > 0 && (
+          {token &&  (numOfCartItems) > 0 && (
               <span className="absolute -top-1 -right-1 bg-gray-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
                 {numOfCartItems}
               </span>

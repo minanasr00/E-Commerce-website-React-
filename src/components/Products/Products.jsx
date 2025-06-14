@@ -6,10 +6,11 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useWishlist } from "../../contexts/WishlistContext";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Products = () => {
   const { products, loading } = useProducts();
-
+const {token} = useAuth()
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 9;
   const { state } = useLocation();
@@ -120,13 +121,13 @@ const Products = () => {
                   className="w-full h-64 object-cover rounded-lg"
                 />
 
-<button  className="absolute top-2 right-2 text-xl cursor-pointer">
+{token && <button  className="absolute top-2 right-2 text-xl cursor-pointer">
   {isInWishlist(product.id) ? (
     <FaHeart onClick={()=>{deleteFromWish(product.id)}}  className="text-black-500 " />
   ) : (
     <FaRegHeart onClick={() => toggleWishlist(product.id)} className="text-black-400" />
   )}
-</button>
+</button>}
 </div>
               <h3 className="text-lg font-semibold mb-1 line-clamp-1">
                 {product.title}

@@ -2,11 +2,14 @@ import axios from "axios";
 import { getAuthToken } from "../utils/token-utils";
 
 import { SERVICES } from "../constants/api";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { toast } from 'react-hot-toast';
+
+
 
 export const getCartItems = async () => {
   const token = getAuthToken();
-
+if (token) {
   try {
     const res = await axios.get(SERVICES.CART_ENDPOINT, {
       headers: {
@@ -23,12 +26,16 @@ export const getCartItems = async () => {
     console.error("Error fetching cart data:", error);
     toast.error("Error fetching cart data");
   }
+} else {
+  return
+}
+  
 };
 
 export const addToCart = async (productId) => {
   const token = getAuthToken();
-
-  try {
+if (token) {
+   try {
     const res = await axios.post(
       SERVICES.CART_ENDPOINT,
       {
@@ -51,6 +58,10 @@ export const addToCart = async (productId) => {
     console.error("Error adding product to cart:", error);
     toast.error(error?.response?.data?.message);
   }
+} else {
+  toast.error("Login First")
+}
+ 
 };
 
 export const updateCartItem = async (productId, body) => {

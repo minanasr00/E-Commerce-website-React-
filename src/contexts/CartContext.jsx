@@ -19,7 +19,6 @@ export const CartContextProvider = ({ children }) => {
       // setIsLoading(true);
       const cartData = await getCartItems();
       setData(cartData);
-      console.log("Cart data fetched successfully:", cartData);
     } catch (error) {
       setError(error);
       console.error(error);
