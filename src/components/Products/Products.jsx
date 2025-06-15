@@ -7,6 +7,7 @@ import { useWishlist } from "../../contexts/WishlistContext";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import { useAuth } from "../../contexts/AuthContext";import { useEffect } from "react";
+import BeatLoader from "react-spinners/esm/BeatLoader";
 
 
 const Products = () => {
@@ -124,7 +125,9 @@ const {token} = useAuth()
   const currentProducts = filteredProducts.slice(indexOfFirst, indexOfLast);
 
   if (loading) {
-    return <div className="text-center text-xl py-10">Loading products...</div>;
+    return <div className='w-full flex justify-center items-center min-h-screen'>
+      <BeatLoader size={25} cssOverride={{ display: "block", width: "100px", height: "50px" }} />
+    </div>
   }
 
   return (
